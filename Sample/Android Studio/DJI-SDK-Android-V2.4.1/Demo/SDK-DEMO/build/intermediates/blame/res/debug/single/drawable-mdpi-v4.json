@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\pickerbutton_pressed.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\pickerbutton_pressed.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\back_button_press.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\back_button_press.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\continue_setting_overlay.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\continue_setting_overlay.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\picker_ok_bg.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\picker_ok_bg.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\back_button_normal.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\back_button_normal.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\back_button_disable.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\back_button_disable.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\pickerbutton_normal.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\pickerbutton_normal.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\pickerbackground_single.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\pickerbackground_single.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\picker_black_bg.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\picker_black_bg.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\icon_tick.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\icon_tick.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_launcher.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\ic_launcher.png"
+    }
+]
