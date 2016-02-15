@@ -39,11 +39,11 @@ public final class R {
 	public static final class id {
 		public static final int bold = 0x7f0c0000;
 		public static final int demi = 0x7f0c0001;
-		public static final int log_dlg_content = 0x7f0c0147;
-		public static final int log_dlg_control = 0x7f0c0144;
-		public static final int log_dlg_lock = 0x7f0c0145;
-		public static final int log_dlg_rg = 0x7f0c0148;
-		public static final int log_dlg_scroll = 0x7f0c0146;
+		public static final int log_dlg_content = 0x7f0c014a;
+		public static final int log_dlg_control = 0x7f0c0147;
+		public static final int log_dlg_lock = 0x7f0c0148;
+		public static final int log_dlg_rg = 0x7f0c014b;
+		public static final int log_dlg_scroll = 0x7f0c0149;
 		public static final int nbold = 0x7f0c0002;
 		public static final int nlight = 0x7f0c0003;
 	}
