@@ -251,214 +251,184 @@ public class GsProtocolFollowMeDemoActivity extends DemoBaseActivity implements 
     @Override
     public void onClick(View v)
     {
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            case R.id.OpenGsButton : {
-                if(!checkGetHomePoint()) return;
-                DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack() {
+        int id = v.getId();
+		if (id == R.id.OpenGsButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "open gs result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                
-                break;
-            }
-            
-            case R.id.StartFollowMeBtn : {
-                if(!checkGetHomePoint()) return;
-                
-                if(Test_In_Simulator){ //Test Flow
-                    DJIFollowMeInitializationInfo info = new DJIFollowMeInitializationInfo();
-                    info.followMeMode = GroundStationFollowMeMode.Relative_Mode;
-                    info.yawMode = GroundStationFollowMeYawMode.Point_To_Customer;
-                    info.userLatitude = droneLatitude;
-                    info.userLongitude = droneLongitude; 
-                    
-                    DJIDrone.getDjiGroundStation().startFollowMe(info, new DJIGroundStationExecuteCallBack() {
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "open gs result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.StartFollowMeBtn) {
+			if(!checkGetHomePoint()) return;
+			if(Test_In_Simulator){ //Test Flow
+			    DJIFollowMeInitializationInfo info = new DJIFollowMeInitializationInfo();
+			    info.followMeMode = GroundStationFollowMeMode.Relative_Mode;
+			    info.yawMode = GroundStationFollowMeYawMode.Point_To_Customer;
+			    info.userLatitude = droneLatitude;
+			    info.userLongitude = droneLongitude; 
+			    
+			    DJIDrone.getDjiGroundStation().startFollowMe(info, new DJIGroundStationExecuteCallBack() {
 
-                        @Override
-                        public void onResult(GroundStationResult result)
-                        {
-                            // TODO Auto-generated method stub
-                            String ResultsString = "start follow me result =" + result.toString();
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                            if(result == GroundStationResult.GS_Result_Success){
-                                startSuccessFlag = true;
-                            }
-                        }
-                        
-                    });
-                }
-                else{
-                    if(!gpsTracker.getGpsEnabled()){
-                        String ResultsString = "Mobile Phone Gps is not enable!";
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        return;
-                    }
-                    
-                    Location location = gpsTracker.getLocation();
-                    if(null == location){
-                        String ResultsString = "Mobile Phone Gps is null!";
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        return;
-                    }
-                    
-                    if(gpsTracker.getAccuracy() > 20){
-                        String ResultsString = "Mobile Phone Gps Accuracy is not enough,accuracy = "+gpsTracker.getAccuracy();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        return; 
-                    }
-                    
-                    DJIFollowMeInitializationInfo info = new DJIFollowMeInitializationInfo();
-                    info.followMeMode = GroundStationFollowMeMode.Relative_Mode;
-                    info.yawMode = GroundStationFollowMeYawMode.Point_To_Customer;
-                    info.userLatitude = location.getLatitude();
-                    info.userLongitude = location.getLongitude();  
-                    
-                    DJIDrone.getDjiGroundStation().startFollowMe(info, new DJIGroundStationExecuteCallBack() {
+			        @Override
+			        public void onResult(GroundStationResult result)
+			        {
+			            // TODO Auto-generated method stub
+			            String ResultsString = "start follow me result =" + result.toString();
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			            if(result == GroundStationResult.GS_Result_Success){
+			                startSuccessFlag = true;
+			            }
+			        }
+			        
+			    });
+			}
+			else{
+			    if(!gpsTracker.getGpsEnabled()){
+			        String ResultsString = "Mobile Phone Gps is not enable!";
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        return;
+			    }
+			    
+			    Location location = gpsTracker.getLocation();
+			    if(null == location){
+			        String ResultsString = "Mobile Phone Gps is null!";
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        return;
+			    }
+			    
+			    if(gpsTracker.getAccuracy() > 20){
+			        String ResultsString = "Mobile Phone Gps Accuracy is not enough,accuracy = "+gpsTracker.getAccuracy();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        return; 
+			    }
+			    
+			    DJIFollowMeInitializationInfo info = new DJIFollowMeInitializationInfo();
+			    info.followMeMode = GroundStationFollowMeMode.Relative_Mode;
+			    info.yawMode = GroundStationFollowMeYawMode.Point_To_Customer;
+			    info.userLatitude = location.getLatitude();
+			    info.userLongitude = location.getLongitude();  
+			    
+			    DJIDrone.getDjiGroundStation().startFollowMe(info, new DJIGroundStationExecuteCallBack() {
 
-                        @Override
-                        public void onResult(GroundStationResult result)
-                        {
-                            // TODO Auto-generated method stub
-                            String ResultsString = "start follow me result =" + result.toString();
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                            if(result == GroundStationResult.GS_Result_Success){
-                                startSuccessFlag = true;
-                            }
-                        }
-                        
-                    });
-                }
-                break;
-            }
-            
-            case R.id.StartSendGPS : {
-                if(!checkGetHomePoint()) return;
-                
-                if(!startSuccessFlag){
-                    String ResultsString = "Follow me is not started successfully!";
-                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));               
-                    return;
-                }
-                hasCanceled = false;
-                if (null == sendGPSTimer) {
-                    sendGPSTimer = new Timer();
-                    task = new sendGPS();
-                    sendGPSTimer.schedule(task, 0, 100);
-                }
-                break;
-            }
-            
-            case R.id.PauseFollowMe : {
-                if(!checkGetHomePoint()) return;
-                
-                if(!startSuccessFlag){
-                    String ResultsString = "Follow me is not started successfully!";
-                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));               
-                    return;
-                }
-                
-                DJIDrone.getDjiGroundStation().pauseFollowMe(new DJIGroundStationExecuteCallBack() {
+			        @Override
+			        public void onResult(GroundStationResult result)
+			        {
+			            // TODO Auto-generated method stub
+			            String ResultsString = "start follow me result =" + result.toString();
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			            if(result == GroundStationResult.GS_Result_Success){
+			                startSuccessFlag = true;
+			            }
+			        }
+			        
+			    });
+			}
+		} else if (id == R.id.StartSendGPS) {
+			if(!checkGetHomePoint()) return;
+			if(!startSuccessFlag){
+			    String ResultsString = "Follow me is not started successfully!";
+			    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));               
+			    return;
+			}
+			hasCanceled = false;
+			if (null == sendGPSTimer) {
+			    sendGPSTimer = new Timer();
+			    task = new sendGPS();
+			    sendGPSTimer.schedule(task, 0, 100);
+			}
+		} else if (id == R.id.PauseFollowMe) {
+			if(!checkGetHomePoint()) return;
+			if(!startSuccessFlag){
+			    String ResultsString = "Follow me is not started successfully!";
+			    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));               
+			    return;
+			}
+			DJIDrone.getDjiGroundStation().pauseFollowMe(new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "pause follow me result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        if(result == GroundStationResult.GS_Result_Success){
-                            hasPaused = true;
-                        }
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.ResumeFollowMe : {
-                if(!checkGetHomePoint()) return;
-                
-                if(!startSuccessFlag){
-                    String ResultsString = "Follow me is not started successfully!";
-                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));               
-                    return;
-                }
-                
-                DJIDrone.getDjiGroundStation().resumeFollowMe(new DJIGroundStationExecuteCallBack() {
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "pause follow me result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        if(result == GroundStationResult.GS_Result_Success){
+			            hasPaused = true;
+			        }
+			    }
+			    
+			});
+		} else if (id == R.id.ResumeFollowMe) {
+			if(!checkGetHomePoint()) return;
+			if(!startSuccessFlag){
+			    String ResultsString = "Follow me is not started successfully!";
+			    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));               
+			    return;
+			}
+			DJIDrone.getDjiGroundStation().resumeFollowMe(new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "resume follow me result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        if(result == GroundStationResult.GS_Result_Success){
-                            hasPaused = false;
-                        }
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.CancelFollowMe : {
-                if(!checkGetHomePoint()) return;
-                
-                if(!startSuccessFlag){
-                    String ResultsString = "Follow me is not started successfully!";
-                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));               
-                    return;
-                }
-                
-                DJIDrone.getDjiGroundStation().cancelFollowMe(new DJIGroundStationExecuteCallBack() {
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "resume follow me result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        if(result == GroundStationResult.GS_Result_Success){
+			            hasPaused = false;
+			        }
+			    }
+			    
+			});
+		} else if (id == R.id.CancelFollowMe) {
+			if(!checkGetHomePoint()) return;
+			if(!startSuccessFlag){
+			    String ResultsString = "Follow me is not started successfully!";
+			    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));               
+			    return;
+			}
+			DJIDrone.getDjiGroundStation().cancelFollowMe(new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "cancel follow me result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        hasCanceled = true;
-                        if (null != sendGPSTimer) {
-                            sendGPSTimer.cancel();
-                            sendGPSTimer.purge();
-                            sendGPSTimer = null;
-                            task.cancel();
-                        }
-                        
-                        startSuccessFlag = false;
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.CloseGroundStation : {
-                if(!checkGetHomePoint()) return;
-                DJIDrone.getDjiGroundStation().closeGroundStation(new DJIGroundStationExecuteCallBack() {
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "cancel follow me result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        hasCanceled = true;
+			        if (null != sendGPSTimer) {
+			            sendGPSTimer.cancel();
+			            sendGPSTimer.purge();
+			            sendGPSTimer = null;
+			            task.cancel();
+			        }
+			        
+			        startSuccessFlag = false;
+			    }
+			    
+			});
+		} else if (id == R.id.CloseGroundStation) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().closeGroundStation(new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        
-                        hasCanceled = false;
-                        hasPaused = false;
-                        String ResultsString = "close gs result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-        }
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        
+			        hasCanceled = false;
+			        hasPaused = false;
+			        String ResultsString = "close gs result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		}
     }
     
     private boolean checkGetHomePoint(){

@@ -63,15 +63,15 @@ public class MainActivity extends DemoBaseActivity
         else {
             mListView.setAdapter(new p2vDemoListAdapter());
         }
-        mListView.setOnItemClickListener(new OnItemClickListener() {  
-            public void onItemClick(AdapterView<?> arg0, View v, int index, long arg3) {  
-                onListItemClick(index);
-            }  
-        }); 
-        
+//        mListView.setOnItemClickListener(new OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> arg0, View v, int index, long arg3) {
+//                onListItemClick(index);
+//            }
+//        });
+//
         //Log.e(TAG, "type = "+type);
         onInitSDK(type);
-        
+      //  onListItemClick(0);
         new Thread(){
             public void run() {
                 try {
@@ -96,13 +96,15 @@ public class MainActivity extends DemoBaseActivity
                 }
             }
         }.start();
+        onListItemClick(0);
     }
     
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
-        super.onResume();
-    }
+   //this.finish();
+     super.onResume();
+   }
     
     @Override
     protected void onPause() {
@@ -176,53 +178,53 @@ public class MainActivity extends DemoBaseActivity
                 break;
             }
         }
-        this.startActivity(intent);
+        this.startActivityForResult(intent, 999);
     }
     
     private static final DemoInfo[] demos = {
-        new DemoInfo(R.string.demo_title_preview,R.string.demo_desc_preview, PreviewDemoActivity.class),
-        new DemoInfo(R.string.demo_title_preview,R.string.demo_hw_decode_desc_preview, PreviewDemoHwDecodeActivity.class),
+//        new DemoInfo(R.string.demo_title_preview,R.string.demo_desc_preview, PreviewDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_preview,R.string.demo_hw_decode_desc_preview, PreviewDemoHwDecodeActivity.class),
         new DemoInfo(R.string.demo_title_camera_protocol,R.string.demo_desc_camera_protocol, CameraProtocolDemoActivity.class),
-        new DemoInfo(R.string.demo_title_main_controller_protocol,R.string.demo_desc_main_controller_protocol, MainControllerDemoActivity.class),
-        new DemoInfo(R.string.demo_title_battery_protocol,R.string.demo_desc_battery_protocol, BatteryInfoDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gimbal_protocol,R.string.demo_desc_gimbal_protocol, GimbalDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gs_protocol,R.string.demo_desc_gs_protocol, GsProtocolDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gs_ioc_protocol,R.string.demo_desc_gs_ioc_protocol, GsProtocolIocDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gs_protocol_joystick,R.string.demo_desc_gs_protocol_joystick, GsProtocolJoystickDemoActivity.class),
-        new DemoInfo(R.string.title_activity_gs_hot_point_protocol_demo,R.string.demo_desc_hot_point_protocol, GsProtocolHotPointDemoActivity.class),
-        new DemoInfo(R.string.title_activity_gs_follow_me_protocol_demo,R.string.demo_desc_follow_me_protocol, GsProtocolFollowMeDemoActivity.class),
-        new DemoInfo(R.string.demo_title_remote_control_protocol,R.string.demo_desc_remote_control_protocol,RemoteControlDemoActivity.class),
-        new DemoInfo(R.string.demo_title_image_transmitter_protocol,R.string.demo_desc_image_transmitter_protocol,ImageTransmitterDemoActivity.class),
-        new DemoInfo(R.string.demo_title_media_sync,R.string.demo_desc_media_sync, MediaSyncDemoActivity.class),
-        new DemoInfo(R.string.demo_title_get_video_frame,R.string.demo_desc_get_video_frame,GetVideoFrameDataOnlyDemoActivity.class)
+//        new DemoInfo(R.string.demo_title_main_controller_protocol,R.string.demo_desc_main_controller_protocol, MainControllerDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_battery_protocol,R.string.demo_desc_battery_protocol, BatteryInfoDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gimbal_protocol,R.string.demo_desc_gimbal_protocol, GimbalDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gs_protocol,R.string.demo_desc_gs_protocol, GsProtocolDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gs_ioc_protocol,R.string.demo_desc_gs_ioc_protocol, GsProtocolIocDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gs_protocol_joystick,R.string.demo_desc_gs_protocol_joystick, GsProtocolJoystickDemoActivity.class),
+//        new DemoInfo(R.string.title_activity_gs_hot_point_protocol_demo,R.string.demo_desc_hot_point_protocol, GsProtocolHotPointDemoActivity.class),
+//        new DemoInfo(R.string.title_activity_gs_follow_me_protocol_demo,R.string.demo_desc_follow_me_protocol, GsProtocolFollowMeDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_remote_control_protocol,R.string.demo_desc_remote_control_protocol,RemoteControlDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_image_transmitter_protocol,R.string.demo_desc_image_transmitter_protocol,ImageTransmitterDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_media_sync,R.string.demo_desc_media_sync, MediaSyncDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_get_video_frame,R.string.demo_desc_get_video_frame,GetVideoFrameDataOnlyDemoActivity.class)
     };
     
     private static final DemoInfo[] p2vDemos = {
-        new DemoInfo(R.string.demo_title_preview,R.string.demo_desc_preview, PreviewDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_preview,R.string.demo_desc_preview, PreviewDemoActivity.class),
         new DemoInfo(R.string.demo_title_camera_protocol,R.string.demo_desc_camera_protocol, CameraProtocolDemoActivity.class),
-        new DemoInfo(R.string.demo_title_main_controller_protocol,R.string.demo_desc_main_controller_protocol, MainControllerDemoActivity.class),
-        new DemoInfo(R.string.demo_title_battery_protocol,R.string.demo_desc_battery_protocol, BatteryInfoDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gimbal_protocol,R.string.demo_desc_gimbal_protocol, GimbalDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gs_protocol,R.string.demo_desc_gs_protocol, GsProtocolDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gs_protocol_joystick,R.string.demo_desc_gs_protocol_joystick, GsProtocolJoystickDemoActivity.class),
-        new DemoInfo(R.string.demo_title_range_extender,R.string.demo_desc_range_extender, RangeExtenderDemoActivity.class),
-        new DemoInfo(R.string.demo_title_media_sync,R.string.demo_desc_media_sync, MediaSyncDemoActivity.class)
+//        new DemoInfo(R.string.demo_title_main_controller_protocol,R.string.demo_desc_main_controller_protocol, MainControllerDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_battery_protocol,R.string.demo_desc_battery_protocol, BatteryInfoDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gimbal_protocol,R.string.demo_desc_gimbal_protocol, GimbalDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gs_protocol,R.string.demo_desc_gs_protocol, GsProtocolDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gs_protocol_joystick,R.string.demo_desc_gs_protocol_joystick, GsProtocolJoystickDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_range_extender,R.string.demo_desc_range_extender, RangeExtenderDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_media_sync,R.string.demo_desc_media_sync, MediaSyncDemoActivity.class)
     };
     // added by jian.zhao for p3s
     private static final DemoInfo[] p3sDemos = {
-        new DemoInfo(R.string.demo_title_preview,R.string.demo_desc_preview, PreviewDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_preview,R.string.demo_desc_preview, PreviewDemoActivity.class),
         new DemoInfo(R.string.demo_title_camera_protocol,R.string.demo_desc_camera_protocol, CameraProtocolDemoActivity.class),
-        new DemoInfo(R.string.demo_title_main_controller_protocol,R.string.demo_desc_main_controller_protocol, MainControllerDemoActivity.class),
-        new DemoInfo(R.string.demo_title_battery_protocol,R.string.demo_desc_battery_protocol, BatteryInfoDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gimbal_protocol,R.string.demo_desc_gimbal_protocol, GimbalDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gs_protocol,R.string.demo_desc_gs_protocol, GsProtocolDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gs_ioc_protocol,R.string.demo_desc_gs_ioc_protocol, GsProtocolIocDemoActivity.class),
-        new DemoInfo(R.string.demo_title_gs_protocol_joystick,R.string.demo_desc_gs_protocol_joystick, GsProtocolJoystickDemoActivity.class),
-        new DemoInfo(R.string.title_activity_gs_hot_point_protocol_demo,R.string.demo_desc_hot_point_protocol, GsProtocolHotPointDemoActivity.class),
-        new DemoInfo(R.string.title_activity_gs_follow_me_protocol_demo,R.string.demo_desc_follow_me_protocol, GsProtocolFollowMeDemoActivity.class),
-        new DemoInfo(R.string.demo_title_remote_control_protocol,R.string.demo_desc_remote_control_protocol,RemoteControlDemoActivity.class),
-        new DemoInfo(R.string.demo_title_image_transmitter_protocol,R.string.demo_desc_image_transmitter_protocol,ImageTransmitterDemoActivity.class),
-        new DemoInfo(R.string.demo_title_media_sync,R.string.demo_desc_media_sync, MediaSyncDemoActivity.class)
+//        new DemoInfo(R.string.demo_title_main_controller_protocol,R.string.demo_desc_main_controller_protocol, MainControllerDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_battery_protocol,R.string.demo_desc_battery_protocol, BatteryInfoDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gimbal_protocol,R.string.demo_desc_gimbal_protocol, GimbalDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gs_protocol,R.string.demo_desc_gs_protocol, GsProtocolDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gs_ioc_protocol,R.string.demo_desc_gs_ioc_protocol, GsProtocolIocDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_gs_protocol_joystick,R.string.demo_desc_gs_protocol_joystick, GsProtocolJoystickDemoActivity.class),
+//        new DemoInfo(R.string.title_activity_gs_hot_point_protocol_demo,R.string.demo_desc_hot_point_protocol, GsProtocolHotPointDemoActivity.class),
+//        new DemoInfo(R.string.title_activity_gs_follow_me_protocol_demo,R.string.demo_desc_follow_me_protocol, GsProtocolFollowMeDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_remote_control_protocol,R.string.demo_desc_remote_control_protocol,RemoteControlDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_image_transmitter_protocol,R.string.demo_desc_image_transmitter_protocol,ImageTransmitterDemoActivity.class),
+//        new DemoInfo(R.string.demo_title_media_sync,R.string.demo_desc_media_sync, MediaSyncDemoActivity.class)
     };
 
     @SuppressLint("ViewHolder")
@@ -337,7 +339,7 @@ public class MainActivity extends DemoBaseActivity
     * @return      : void
     */
    public void onReturn(View view){
-       Log.d(TAG ,"onReturn");  
+       Log.d(TAG, "onReturn");
        this.finish();
    }
    
@@ -354,5 +356,16 @@ public class MainActivity extends DemoBaseActivity
        AlertDialog alert = builder.create();
        alert.show();
    }
-   
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       // super.onActivityResult(requestCode, resultCode, data);
+
+       if(resultCode == 666)
+       {
+           onUnInitSDK();
+           this.finish();
+       }
+    }
+
 }

@@ -468,20 +468,15 @@ public class RangeExtenderDemoActivity extends DemoBaseActivity implements OnCli
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            case R.id.StartBindButton:
-                startBind();
-                break;
-            case R.id.StartRenameButton:
-                startRename();
-                break;
-            case R.id.StartSetPasswordButton:
-                startSetPassword();
-                break;    
-            default:
-                break;
-        }
+        int id = v.getId();
+		if (id == R.id.StartBindButton) {
+			startBind();
+		} else if (id == R.id.StartRenameButton) {
+			startRename();
+		} else if (id == R.id.StartSetPasswordButton) {
+			startSetPassword();
+		} else {
+		}
     }
     
 }

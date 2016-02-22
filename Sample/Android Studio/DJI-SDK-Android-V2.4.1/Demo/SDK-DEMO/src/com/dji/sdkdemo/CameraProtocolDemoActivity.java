@@ -535,7 +535,13 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
         DJIDrone.getDjiCamera().startUpdateTimer(1000);
         super.onResume();
     }
-    
+
+//    @Override
+//    public void onBackPressed() {
+//        this.setResult(666,null);
+//        this.finish();
+//    }
+
     @Override
     protected void onPause() {
         // TODO Auto-generated method stub
@@ -2675,10 +2681,21 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
      * @return      : void
      */
     public void onReturn(View view){
-        Log.d(TAG ,"onReturn");  
+        Log.d(TAG ,"onReturn");
+        //this.setResult(666);
+//        this.setResult(666,null);
+        this.setResult(666,null);
         this.finish();
+
+
     }
-    
+
+//    @Override
+//    public void finish() {
+//        setResult(666,null);
+//        super.finish();
+//    }
+
     public interface pickerValueChangeListener {
         void onValueChange(int pos1,int pos2);
     }

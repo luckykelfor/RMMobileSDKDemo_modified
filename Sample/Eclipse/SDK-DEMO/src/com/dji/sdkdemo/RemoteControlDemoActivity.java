@@ -393,741 +393,635 @@ public class RemoteControlDemoActivity extends DemoBaseActivity implements OnCli
     {
         // TODO Auto-generated method stub
         ArrayList<String> strlist;
-        switch (v.getId()) {
-            case R.id.GetChannelParamsBtn : {
-                Log.v("Inspire", "onClick");
-                DJIDrone.getDjiRemoteController().getChannelParams(new DJIRemoteControllerGetChannelParamsCallBack() {
+        int id = v.getId();
+		if (id == R.id.GetChannelParamsBtn) {
+			Log.v("Inspire", "onClick");
+			DJIDrone.getDjiRemoteController().getChannelParams(new DJIRemoteControllerGetChannelParamsCallBack() {
 
-                    @Override
-                    public void onResutl(
-                            ArrayList<DJIRemoteControllerChannelParams> result)
-                    {
-                        // TODO Auto-generated method stub
-                        if (stringBuffer.length() != 0)
-                            stringBuffer.delete(0, stringBuffer.length() - 1);
-                        int cnt = result.size();
-                        for (int i = 0; i < cnt; i++) {
-                            stringBuffer.append(i + "ChannelName: " + result.get(i).name).append("\n");
-                            stringBuffer.append(i + "ChannelValue: " + result.get(i).value).append("\n");
-                            if (result.get(i).direction) {
-                                stringBuffer.append(i + "ChannelDir: " + "forward\n\n");
-                            } else {
-                                stringBuffer.append(i + "ChannelDir: " + "backward\n\n");
-                            }
-                        }
-                        String ResultsString = "Printed"+cnt;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetChannelParamsBtn : {
-                ArrayList<DJIRemoteControllerChannelParams> channelParams = new ArrayList<DJIRemoteControllerChannelParams>();
-                for (int i = 0; i < 8; i++) {
-                    DJIRemoteControllerChannelParams param = new DJIRemoteControllerChannelParams();
-                    param.name = i + 100;
-                    param.value = 1023;
-                    param.direction = i % 2 == 0 ? true : false;
-                    channelParams.add(param);
-                }
-                DJIDrone.getDjiRemoteController().setChannelParams(channelParams, new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResutl(
+			            ArrayList<DJIRemoteControllerChannelParams> result)
+			    {
+			        // TODO Auto-generated method stub
+			        if (stringBuffer.length() != 0)
+			            stringBuffer.delete(0, stringBuffer.length() - 1);
+			        int cnt = result.size();
+			        for (int i = 0; i < cnt; i++) {
+			            stringBuffer.append(i + "ChannelName: " + result.get(i).name).append("\n");
+			            stringBuffer.append(i + "ChannelValue: " + result.get(i).value).append("\n");
+			            if (result.get(i).direction) {
+			                stringBuffer.append(i + "ChannelDir: " + "forward\n\n");
+			            } else {
+			                stringBuffer.append(i + "ChannelDir: " + "backward\n\n");
+			            }
+			        }
+			        String ResultsString = "Printed"+cnt;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetChannelParamsBtn) {
+			ArrayList<DJIRemoteControllerChannelParams> channelParams = new ArrayList<DJIRemoteControllerChannelParams>();
+			for (int i = 0; i < 8; i++) {
+			    DJIRemoteControllerChannelParams param = new DJIRemoteControllerChannelParams();
+			    param.name = i + 100;
+			    param.value = 1023;
+			    param.direction = i % 2 == 0 ? true : false;
+			    channelParams.add(param);
+			}
+			DJIDrone.getDjiRemoteController().setChannelParams(channelParams, new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorCode;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetCalibrationBtn : {
-                strlist = new ArrayList<String>();
-                strlist.add(this.getString(R.string.calibration_normal));
-                strlist.add(this.getString(R.string.calibration_record_middle_value));
-                strlist.add(this.getString(R.string.calibration_record_extremum));
-                strlist.add(this.getString(R.string.calibration_exit));
-                mPopupNumberPicker = new PopupNumberPicker(m_context,
-                        strlist,
-                        new pickerValueChangeListener(){
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorCode;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetCalibrationBtn) {
+			strlist = new ArrayList<String>();
+			strlist.add(this.getString(R.string.calibration_normal));
+			strlist.add(this.getString(R.string.calibration_record_middle_value));
+			strlist.add(this.getString(R.string.calibration_record_extremum));
+			strlist.add(this.getString(R.string.calibration_exit));
+			mPopupNumberPicker = new PopupNumberPicker(m_context,
+			        strlist,
+			        new pickerValueChangeListener(){
 
-                            @Override
-                            public void onValueChange(int pos1, int pos2) {
-                                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
-                                mPopupNumberPicker.dismiss();
-                                mPopupNumberPicker = null;
-                                
-                                DJIDrone.getDjiRemoteController().SetCalibration(DJIRemoteControllerCalibrationStatus.find(pos1), 
-                                        new DJIRemoteControllerCalibrationStatusCallBack() {
+			            @Override
+			            public void onValueChange(int pos1, int pos2) {
+			                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
+			                mPopupNumberPicker.dismiss();
+			                mPopupNumberPicker = null;
+			                
+			                DJIDrone.getDjiRemoteController().SetCalibration(DJIRemoteControllerCalibrationStatus.find(pos1), 
+			                        new DJIRemoteControllerCalibrationStatusCallBack() {
 
-                                            @Override
-                                            public void onReslt(
-                                                    DJIRemoteControllerCalibrationStatus result)
-                                            {
-                                                // TODO Auto-generated method stub
-                                                String ResultsString = "return code =" + result.toString();
-                                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                                            }
-                                    
-                                });
-                            }
-                            }, 250,
-                            200, 0);
-                mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
-                        Gravity.CENTER, 0, 0);
-                break;
-            }
-            
-            case R.id.GetHardwareParamsBtn : {
-                DJIDrone.getDjiRemoteController().getHardwareParams(new DJIRemoteControllerGetChannelParamsCallBack(){
+			                            @Override
+			                            public void onReslt(
+			                                    DJIRemoteControllerCalibrationStatus result)
+			                            {
+			                                // TODO Auto-generated method stub
+			                                String ResultsString = "return code =" + result.toString();
+			                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			                            }
+			                    
+			                });
+			            }
+			            }, 250,
+			            200, 0);
+			mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
+			        Gravity.CENTER, 0, 0);
+		} else if (id == R.id.GetHardwareParamsBtn) {
+			DJIDrone.getDjiRemoteController().getHardwareParams(new DJIRemoteControllerGetChannelParamsCallBack(){
 
-                    @Override
-                    public void onResutl(
-                            ArrayList<DJIRemoteControllerChannelParams> result)
-                    {
-                        // TODO Auto-generated method stub
-                        if (stringBuffer.length() != 0)
-                            stringBuffer.delete(0, stringBuffer.length() - 1);
-                        int cnt = result.size();
-                        if (cnt == 0)
-                            stringBuffer.append("None Channel Exist");
-                        for (int i = 0; i < cnt; i++) {
-                            stringBuffer.append(i + "ChannelValue: " + result.get(i).value).append("\n");
-                        }
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetMasterModeBtn : {
-                strlist = new ArrayList<String>();
-                strlist.add(this.getString(R.string.master_mode_master));
-                strlist.add(this.getString(R.string.master_mode_slave));
-                strlist.add(this.getString(R.string.master_mode_listener));
-                mPopupNumberPicker = new PopupNumberPicker(m_context,
-                        strlist,
-                        new pickerValueChangeListener(){
+			    @Override
+			    public void onResutl(
+			            ArrayList<DJIRemoteControllerChannelParams> result)
+			    {
+			        // TODO Auto-generated method stub
+			        if (stringBuffer.length() != 0)
+			            stringBuffer.delete(0, stringBuffer.length() - 1);
+			        int cnt = result.size();
+			        if (cnt == 0)
+			            stringBuffer.append("None Channel Exist");
+			        for (int i = 0; i < cnt; i++) {
+			            stringBuffer.append(i + "ChannelValue: " + result.get(i).value).append("\n");
+			        }
+			    }
+			    
+			});
+		} else if (id == R.id.SetMasterModeBtn) {
+			strlist = new ArrayList<String>();
+			strlist.add(this.getString(R.string.master_mode_master));
+			strlist.add(this.getString(R.string.master_mode_slave));
+			strlist.add(this.getString(R.string.master_mode_listener));
+			mPopupNumberPicker = new PopupNumberPicker(m_context,
+			        strlist,
+			        new pickerValueChangeListener(){
 
-                            @Override
-                            public void onValueChange(int pos1, int pos2) {
-                                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
-                                mPopupNumberPicker.dismiss();
-                                mPopupNumberPicker = null;
-                                
-                                DJIDrone.getDjiRemoteController().setRCWorkMode(DJIRemoteControllerType.find(pos1), new DJIExecuteResultCallback(){
+			            @Override
+			            public void onValueChange(int pos1, int pos2) {
+			                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
+			                mPopupNumberPicker.dismiss();
+			                mPopupNumberPicker = null;
+			                
+			                DJIDrone.getDjiRemoteController().setRCWorkMode(DJIRemoteControllerType.find(pos1), new DJIExecuteResultCallback(){
 
-                                    @Override
-                                    public void onResult(DJIError mErr)
-                                    {
-                                        // TODO Auto-generated method stub
-                                        String ResultsString = "return code =" + mErr.errorCode;
-                                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                                    }
-                                    
-                                });
-                            }
-                            }, 250,
-                            200, 0);
-                mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
-                        Gravity.CENTER, 0, 0);
-                break;
-            }
-            
-            case R.id.GetMasterModeBtn : {
-                DJIDrone.getDjiRemoteController().getRCWorkMode(new DJIRemoteControllerMasterModeCallBack() {
+			                    @Override
+			                    public void onResult(DJIError mErr)
+			                    {
+			                        // TODO Auto-generated method stub
+			                        String ResultsString = "return code =" + mErr.errorCode;
+			                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			                    }
+			                    
+			                });
+			            }
+			            }, 250,
+			            200, 0);
+			mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
+			        Gravity.CENTER, 0, 0);
+		} else if (id == R.id.GetMasterModeBtn) {
+			DJIDrone.getDjiRemoteController().getRCWorkMode(new DJIRemoteControllerMasterModeCallBack() {
 
-                    @Override
-                    public void onResult(boolean connectStatus,
-                            DJIRemoteControllerType type)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + type.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetMasterNameBtn : {
-                if (!TextUtils.isEmpty(mNameEditText.getText())) {
-                    DJIDrone.getDjiRemoteController().setRCName(mNameEditText.getText().toString(), new DJIExecuteResultCallback() {
-    
-                        @Override
-                        public void onResult(DJIError mErr)
-                        {
-                            // TODO Auto-generated method stub
-                            String ResultsString = "return code =" + mErr.errorCode;
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        }
-                        
-                    });
-                break;
-                } else {
-                    String ResultsString = "Information is required.";
-                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                }
-                break;
-            }
-            
-            case R.id.GetMasterNameBtn : {
-                DJIDrone.getDjiRemoteController().getRCName(new DJIExecuteStringResultCallback() {
+			    @Override
+			    public void onResult(boolean connectStatus,
+			            DJIRemoteControllerType type)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + type.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetMasterNameBtn) {
+			if (!TextUtils.isEmpty(mNameEditText.getText())) {
+			    DJIDrone.getDjiRemoteController().setRCName(mNameEditText.getText().toString(), new DJIExecuteResultCallback() {
+   
+			        @Override
+			        public void onResult(DJIError mErr)
+			        {
+			            // TODO Auto-generated method stub
+			            String ResultsString = "return code =" + mErr.errorCode;
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        }
+			        
+			    });
+			//break;
+			} else {
+			    String ResultsString = "Information is required.";
+			    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			}
+		} else if (id == R.id.GetMasterNameBtn) {
+			DJIDrone.getDjiRemoteController().getRCName(new DJIExecuteStringResultCallback() {
 
-                    @Override
-                    public void onResult(String result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + result;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetPasswordBtn : {
-                if (mPwdEditText.getText().length() == 4 ) {
-                    DJIDrone.getDjiRemoteController().setRCPassword(mPwdEditText.getText().toString(), new DJIExecuteResultCallback() {
-    
-                        @Override
-                        public void onResult(DJIError mErr)
-                        {
-                            // TODO Auto-generated method stub
-                            String ResultsString = "return code =" + mErr.errorCode;
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        }
-                        
-                    });
-                } else {
-                    String ResultsString = "A password of 4 digits is required.";
-                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                }
-                break;
-            }
-            
-            case R.id.GetPasswordBtn : {
-                DJIDrone.getDjiRemoteController().getRCPassword(new DJIExecuteStringResultCallback() {
+			    @Override
+			    public void onResult(String result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + result;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetPasswordBtn) {
+			if (mPwdEditText.getText().length() == 4 ) {
+			    DJIDrone.getDjiRemoteController().setRCPassword(mPwdEditText.getText().toString(), new DJIExecuteResultCallback() {
+   
+			        @Override
+			        public void onResult(DJIError mErr)
+			        {
+			            // TODO Auto-generated method stub
+			            String ResultsString = "return code =" + mErr.errorCode;
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        }
+			        
+			    });
+			} else {
+			    String ResultsString = "A password of 4 digits is required.";
+			    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			}
+		} else if (id == R.id.GetPasswordBtn) {
+			DJIDrone.getDjiRemoteController().getRCPassword(new DJIExecuteStringResultCallback() {
 
-                    @Override
-                    public void onResult(String result)
-                    {
-                        // TODO Auto-generated method stub
-                        //show the password as 4 digits
+			    @Override
+			    public void onResult(String result)
+			    {
+			        // TODO Auto-generated method stub
+			        //show the password as 4 digits
 
-                        String ResultsString = "return code =" + result;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetControlMasterBtn : {
-                if (mIDEditText.getText().length() != 0 && mPwdEditText.getText().length() != 0 && mNameEditText.getText().length() != 0) {
-                    DJIRemoteControllerMasterInfo info = new DJIRemoteControllerMasterInfo(Integer.parseInt(mIDEditText.getText().toString()),
-                                                                                           mNameEditText.getText().toString(), 
-                                                                                           Integer.parseInt(mPwdEditText.getText().toString()), 
-                                                                                           0);
-                    DJIDrone.getDjiRemoteController().joinMasterWithID(info, new DJIExecuteResultCallback() {
-    
-                        @Override
-                        public void onResult(DJIError mErr)
-                        {
-                            // TODO Auto-generated method stub
-                            String ResultsString = "return code =" + mErr.errorDescription;
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        }
-                        
-                    });
-                } else {
-                    String ResultsString = "Information is required.";
-                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                }
-                break;
-            }
-            
-            case R.id.GetControlMasterBtn : {
-                DJIDrone.getDjiRemoteController().getJoinedMasterNameAndPassword(new DJIRemoteControllerMasterInfoCallBack() {
+			        String ResultsString = "return code =" + result;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetControlMasterBtn) {
+			if (mIDEditText.getText().length() != 0 && mPwdEditText.getText().length() != 0 && mNameEditText.getText().length() != 0) {
+			    DJIRemoteControllerMasterInfo info = new DJIRemoteControllerMasterInfo(Integer.parseInt(mIDEditText.getText().toString()),
+			                                                                           mNameEditText.getText().toString(), 
+			                                                                           Integer.parseInt(mPwdEditText.getText().toString()), 
+			                                                                           0);
+			    DJIDrone.getDjiRemoteController().joinMasterWithID(info, new DJIExecuteResultCallback() {
+   
+			        @Override
+			        public void onResult(DJIError mErr)
+			        {
+			            // TODO Auto-generated method stub
+			            String ResultsString = "return code =" + mErr.errorDescription;
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        }
+			        
+			    });
+			} else {
+			    String ResultsString = "Information is required.";
+			    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			}
+		} else if (id == R.id.GetControlMasterBtn) {
+			DJIDrone.getDjiRemoteController().getJoinedMasterNameAndPassword(new DJIRemoteControllerMasterInfoCallBack() {
 
-                    @Override
-                    public void onResult(DJIRemoteControllerMasterInfo info)
-                    {
-                        // TODO Auto-generated method stub
-                        if (0 != info.ID) {
-                            String ResultsString = "id: "+info.ID + " pwd: " + info.password + " name: " + info.name;
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        } else {
-                            String ResultsString = "Failure.";
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        }
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetSearchModeBtn : {
-                DJIDrone.getDjiRemoteController().getAvailableMasters(new DJIRemoteControllerSearchMastersCallBack() {
+			    @Override
+			    public void onResult(DJIRemoteControllerMasterInfo info)
+			    {
+			        // TODO Auto-generated method stub
+			        if (0 != info.ID) {
+			            String ResultsString = "id: "+info.ID + " pwd: " + info.password + " name: " + info.name;
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        } else {
+			            String ResultsString = "Failure.";
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        }
+			    }
+			    
+			});
+		} else if (id == R.id.SetSearchModeBtn) {
+			DJIDrone.getDjiRemoteController().getAvailableMasters(new DJIRemoteControllerSearchMastersCallBack() {
 
-                    @Override
-                    public void onResult(
-                            ArrayList<DJIRemoteControllerMasterInfo> result)
-                    {
-                        // TODO Auto-generated method stub
-                        if (stringBuffer.length() != 0)
-                            stringBuffer.delete(0, stringBuffer.length() - 1);
-                        int cnt = result.size();
-                        for (int i = 0; i < cnt; i++) {
-                            stringBuffer.append(i + "Master ID:" + result.get(i).ID).append("\n");
-                            stringBuffer.append(i + "Master Name:" + result.get(i).name).append("\n");
-                            stringBuffer.append(i + "Master Value:" + result.get(i).password).append("\n\n");
-                        }
-                        String ResultsString = "Printed"+cnt;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetToggleBtn : {
-                DJIDrone.getDjiRemoteController().setToggle(true, new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResult(
+			            ArrayList<DJIRemoteControllerMasterInfo> result)
+			    {
+			        // TODO Auto-generated method stub
+			        if (stringBuffer.length() != 0)
+			            stringBuffer.delete(0, stringBuffer.length() - 1);
+			        int cnt = result.size();
+			        for (int i = 0; i < cnt; i++) {
+			            stringBuffer.append(i + "Master ID:" + result.get(i).ID).append("\n");
+			            stringBuffer.append(i + "Master Name:" + result.get(i).name).append("\n");
+			            stringBuffer.append(i + "Master Value:" + result.get(i).password).append("\n\n");
+			        }
+			        String ResultsString = "Printed"+cnt;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetToggleBtn) {
+			DJIDrone.getDjiRemoteController().setToggle(true, new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorCode;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.GetToggleBtn : {
-                DJIDrone.getDjiRemoteController().getToggle(new DJIExecuteBooleanResultCallback() {
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorCode;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.GetToggleBtn) {
+			DJIDrone.getDjiRemoteController().getToggle(new DJIExecuteBooleanResultCallback() {
 
-                    @Override
-                    public void onResult(boolean result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + (result ? "True" : "False");
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.StartSearchMaster : {
-                DJIDrone.getDjiRemoteController().startSearchMaster(new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResult(boolean result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + (result ? "True" : "False");
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.StartSearchMaster) {
+			DJIDrone.getDjiRemoteController().startSearchMaster(new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorDescription;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.StopSearchMaster : {
-                DJIDrone.getDjiRemoteController().stopSearchMaster(new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorDescription;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.StopSearchMaster) {
+			DJIDrone.getDjiRemoteController().stopSearchMaster(new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorDescription;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.GetSlaveListBtn : {
-                DJIDrone.getDjiRemoteController().getSlaveList(new DJIRemoteControllerSlaveInfoListCallBack() {
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorDescription;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.GetSlaveListBtn) {
+			DJIDrone.getDjiRemoteController().getSlaveList(new DJIRemoteControllerSlaveInfoListCallBack() {
 
-                    @Override
-                    public void onResult(
-                            ArrayList<DJIRemoteControllerSlaveInfo> result)
-                    {
-                        // TODO Auto-generated method stub
-                        if (stringBuffer.length() != 0)
-                            stringBuffer.delete(0, stringBuffer.length() - 1);
-                        int cnt = result.size();
-                        for (int i = 0; i < cnt; i++) {
-                            stringBuffer.append(i + "Slave ID:" + result.get(i).id).append("\n");
-                            stringBuffer.append(i + "Slave Name:" + result.get(i).name).append("\n");
-                            stringBuffer.append(i + "Slave Value:" + result.get(i).quality).append("\n");
-                            stringBuffer.append(i + "Slave capture:" + (result.get(i).takephoto ? "yes" : "no")).append("\n");
-                            stringBuffer.append(i + "Slave record:" + (result.get(i).record ? "yes" : "no")).append("\n");
-                            stringBuffer.append(i + "Slave playback:" + (result.get(i).playback ? "yes" : "no")).append("\n");
-                            stringBuffer.append(i + "Slave pitch:" + (result.get(i).pitch ? "yes" : "no")).append("\n");
-                            stringBuffer.append(i + "Slave roll:" + (result.get(i).roll ? "yes" : "no")).append("\n");
-                            stringBuffer.append(i + "Slave yaw:" + (result.get(i).yaw ? "yes" : "no")).append("\n");
-                            stringBuffer.append(i + "Slave isOpen:" + (result.get(i).isOpen ? "yes" : "no")).append("\n");
-                        }
-                        String ResultsString = "Printed" + cnt;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetSlavePermissionBtn : {
-                if (mPwdEditText.getText().length() != 0) {
-                    DJIRemoteControllerSlaveInfo info = new DJIRemoteControllerSlaveInfo();
-                    info.id = Integer.parseInt(mPwdEditText.getText().toString());
-                    info.takephoto = true;
-                    info.record = true;
-                    info.playback = true;
-                    info.pitch = true;
-                    info.roll = true;
-                    info.yaw = true;
-                    DJIDrone.getDjiRemoteController().setSlave(info, new DJIExecuteBooleanResultCallback() {
-    
-                        @Override
-                        public void onResult(boolean result)
-                        {
-                            // TODO Auto-generated method stub
-                            String ResultsString = "return code =" + (result ? "True" : "False");
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                        }
-                        
-                    });
-                } else {
-                    String ResultsString = "Information is required.";
-                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                }
-                break;
-            }
-            
-            case R.id.GetSlavePermissionBtn : {
-                if (mPwdEditText.getText().length() != 0) {
-                    DJIDrone.getDjiRemoteController().getSlaveControlPermission(Integer.parseInt(mPwdEditText.getText().toString()), new DJIRemoteControllerPermissionCallBack() {
-    
-                        @Override
-                        public void onResult(DJIRemoteControllerPermission result)
-                        {
-                            // TODO Auto-generated method stub
-                            if (stringBuffer.length() != 0)
-                                stringBuffer.delete(0, stringBuffer.length() - 1);
-                            int SLAVEID = Integer.parseInt(mPwdEditText.getText().toString());
-                            stringBuffer.append(SLAVEID + " Slave ID:" + result.id).append("\n");
-                            stringBuffer.append(SLAVEID + " Slave capture:" + (result.takephoto ? "yes" : "no")).append("\n");
-                            stringBuffer.append(SLAVEID + " Slave record:" + (result.record ? "yes" : "no")).append("\n");
-                            stringBuffer.append(SLAVEID + " Slave playback:" + (result.playback ? "yes" : "no")).append("\n");
-                            stringBuffer.append(SLAVEID + " Slave pitch:" + (result.pitch ? "yes" : "no")).append("\n");
-                            stringBuffer.append(SLAVEID + " Slave roll:" + (result.roll ? "yes" : "no")).append("\n");
-                            stringBuffer.append(SLAVEID + " Slave yaw:" + (result.yaw ? "yes" : "no")).append("\n");
-                        }
-                        
-                    });
-                } else {
-                    String ResultsString = "Information is required.";
-                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString)); 
-                }
-                break;
-            }
-            
-            case R.id.SetControlModeBtn : {
-                ArrayList<DJIRemoteControllerCustomerPreference> channelTypeList = new ArrayList<DJIRemoteControllerCustomerPreference>();
-                DJIDrone.getDjiRemoteController().setMasterControlMode(DJIRemoteControllerControlMode.China, channelTypeList, new DJIExecuteBooleanResultCallback() {
+			    @Override
+			    public void onResult(
+			            ArrayList<DJIRemoteControllerSlaveInfo> result)
+			    {
+			        // TODO Auto-generated method stub
+			        if (stringBuffer.length() != 0)
+			            stringBuffer.delete(0, stringBuffer.length() - 1);
+			        int cnt = result.size();
+			        for (int i = 0; i < cnt; i++) {
+			            stringBuffer.append(i + "Slave ID:" + result.get(i).id).append("\n");
+			            stringBuffer.append(i + "Slave Name:" + result.get(i).name).append("\n");
+			            stringBuffer.append(i + "Slave Value:" + result.get(i).quality).append("\n");
+			            stringBuffer.append(i + "Slave capture:" + (result.get(i).takephoto ? "yes" : "no")).append("\n");
+			            stringBuffer.append(i + "Slave record:" + (result.get(i).record ? "yes" : "no")).append("\n");
+			            stringBuffer.append(i + "Slave playback:" + (result.get(i).playback ? "yes" : "no")).append("\n");
+			            stringBuffer.append(i + "Slave pitch:" + (result.get(i).pitch ? "yes" : "no")).append("\n");
+			            stringBuffer.append(i + "Slave roll:" + (result.get(i).roll ? "yes" : "no")).append("\n");
+			            stringBuffer.append(i + "Slave yaw:" + (result.get(i).yaw ? "yes" : "no")).append("\n");
+			            stringBuffer.append(i + "Slave isOpen:" + (result.get(i).isOpen ? "yes" : "no")).append("\n");
+			        }
+			        String ResultsString = "Printed" + cnt;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetSlavePermissionBtn) {
+			if (mPwdEditText.getText().length() != 0) {
+			    DJIRemoteControllerSlaveInfo info = new DJIRemoteControllerSlaveInfo();
+			    info.id = Integer.parseInt(mPwdEditText.getText().toString());
+			    info.takephoto = true;
+			    info.record = true;
+			    info.playback = true;
+			    info.pitch = true;
+			    info.roll = true;
+			    info.yaw = true;
+			    DJIDrone.getDjiRemoteController().setSlave(info, new DJIExecuteBooleanResultCallback() {
+   
+			        @Override
+			        public void onResult(boolean result)
+			        {
+			            // TODO Auto-generated method stub
+			            String ResultsString = "return code =" + (result ? "True" : "False");
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			        }
+			        
+			    });
+			} else {
+			    String ResultsString = "Information is required.";
+			    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			}
+		} else if (id == R.id.GetSlavePermissionBtn) {
+			if (mPwdEditText.getText().length() != 0) {
+			    DJIDrone.getDjiRemoteController().getSlaveControlPermission(Integer.parseInt(mPwdEditText.getText().toString()), new DJIRemoteControllerPermissionCallBack() {
+   
+			        @Override
+			        public void onResult(DJIRemoteControllerPermission result)
+			        {
+			            // TODO Auto-generated method stub
+			            if (stringBuffer.length() != 0)
+			                stringBuffer.delete(0, stringBuffer.length() - 1);
+			            int SLAVEID = Integer.parseInt(mPwdEditText.getText().toString());
+			            stringBuffer.append(SLAVEID + " Slave ID:" + result.id).append("\n");
+			            stringBuffer.append(SLAVEID + " Slave capture:" + (result.takephoto ? "yes" : "no")).append("\n");
+			            stringBuffer.append(SLAVEID + " Slave record:" + (result.record ? "yes" : "no")).append("\n");
+			            stringBuffer.append(SLAVEID + " Slave playback:" + (result.playback ? "yes" : "no")).append("\n");
+			            stringBuffer.append(SLAVEID + " Slave pitch:" + (result.pitch ? "yes" : "no")).append("\n");
+			            stringBuffer.append(SLAVEID + " Slave roll:" + (result.roll ? "yes" : "no")).append("\n");
+			            stringBuffer.append(SLAVEID + " Slave yaw:" + (result.yaw ? "yes" : "no")).append("\n");
+			        }
+			        
+			    });
+			} else {
+			    String ResultsString = "Information is required.";
+			    handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString)); 
+			}
+		} else if (id == R.id.SetControlModeBtn) {
+			ArrayList<DJIRemoteControllerCustomerPreference> channelTypeList = new ArrayList<DJIRemoteControllerCustomerPreference>();
+			DJIDrone.getDjiRemoteController().setMasterControlMode(DJIRemoteControllerControlMode.China, channelTypeList, new DJIExecuteBooleanResultCallback() {
 
-                    @Override
-                    public void onResult(boolean result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + (result ? "True" : "False");
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.GetControlModeBtn : {
-                DJIDrone.getDjiRemoteController().getMasterControlMode(new DJIRemoteControllerModeCallBack() {
+			    @Override
+			    public void onResult(boolean result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + (result ? "True" : "False");
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.GetControlModeBtn) {
+			DJIDrone.getDjiRemoteController().getMasterControlMode(new DJIRemoteControllerModeCallBack() {
 
-                    @Override
-                    public void onResult(
-                            DJIRemoteControllerControlMode mode,
-                            ArrayList<DJIRemoteControllerCustomerPreference> channelTypeList)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mode.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.GetGimbalPermission : {
-                DJIDrone.getDjiRemoteController().getGimbalCtrPermission(new DJIExecuteIntResultCallback() {
+			    @Override
+			    public void onResult(
+			            DJIRemoteControllerControlMode mode,
+			            ArrayList<DJIRemoteControllerCustomerPreference> channelTypeList)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mode.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.GetGimbalPermission) {
+			DJIDrone.getDjiRemoteController().getGimbalCtrPermission(new DJIExecuteIntResultCallback() {
 
-                    @Override
-                    public void onResult(int result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + result;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetSlaveModeBtn : {
-                ArrayList<DJIRemoteControllerSlaveControlMode> controlModeList = new ArrayList<DJIRemoteControllerSlaveControlMode>();
-                DJIDrone.getDjiRemoteController().setSlaveMode(false, controlModeList , new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResult(int result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + result;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetSlaveModeBtn) {
+			ArrayList<DJIRemoteControllerSlaveControlMode> controlModeList = new ArrayList<DJIRemoteControllerSlaveControlMode>();
+			DJIDrone.getDjiRemoteController().setSlaveMode(false, controlModeList , new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorCode;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.GetSlaveModeBtn : {
-                DJIDrone.getDjiRemoteController().getSlaveMode(new DJIRemoteControllerSlaveModeCallBack() {
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorCode;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.GetSlaveModeBtn) {
+			DJIDrone.getDjiRemoteController().getSlaveMode(new DJIRemoteControllerSlaveModeCallBack() {
 
-                    @Override
-                    public void onResult(boolean isDefault,
-                            ArrayList<DJIRemoteControllerSlaveControlMode> result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "isDefalut =" + (isDefault ? "True" : "False");
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetGimbalSpeedBtn : {
-                DJIDrone.getDjiRemoteController().setGimbalControlSpeed(40, 40, 40, new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResult(boolean isDefault,
+			            ArrayList<DJIRemoteControllerSlaveControlMode> result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "isDefalut =" + (isDefault ? "True" : "False");
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetGimbalSpeedBtn) {
+			DJIDrone.getDjiRemoteController().setGimbalControlSpeed(40, 40, 40, new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorCode;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    } 
-                    
-                });
-                break;
-            }
-            
-            case R.id.GetGimbalSpeedBtn : {
-                DJIDrone.getDjiRemoteController().getGimbalControlSpeed(new DJIRemoteControllerGimbalSpeedCallBack() {
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorCode;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    } 
+			    
+			});
+		} else if (id == R.id.GetGimbalSpeedBtn) {
+			DJIDrone.getDjiRemoteController().getGimbalControlSpeed(new DJIRemoteControllerGimbalSpeedCallBack() {
 
-                    @Override
-                    public void onResult(int pitchSpeed, int rollSpeed,
-                            int yawSpeed)
-                    {
-                        // TODO Auto-generated method stub
-                        if (stringBuffer.length() != 0)
-                            stringBuffer.delete(0, stringBuffer.length() - 1);
-                        stringBuffer.append("pitch: " + pitchSpeed).append("\n");
-                        stringBuffer.append("roll: " + rollSpeed).append("\n");
-                        stringBuffer.append("yaw: " + yawSpeed).append("\n");
-                    }
-                    
-                });
-                break;
-            }
-            case R.id.GimbalDirectionButton: {
-            	
-            	LinkedList<String> strList = new LinkedList<String>(){{ add("pitch"); add("roll"); add("yaw");}};
-            	mPopupNumberPicker = new PopupNumberPicker(m_context, strList, new pickerValueChangeListener() {
-                    
-                    @Override
-                    public void onValueChange(int pos1, int pos2) {
-                        mPopupNumberPicker.dismiss();
-                        mPopupNumberPicker = null;
-                        Log.d(TAG,"wheel gimbal direction set: "+ControlModeFunction.find(pos1+1));
-                        DJIDrone.getDjiRemoteController().setRCControlGimbalDirection(ControlModeFunction.find(pos1+1), new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResult(int pitchSpeed, int rollSpeed,
+			            int yawSpeed)
+			    {
+			        // TODO Auto-generated method stub
+			        if (stringBuffer.length() != 0)
+			            stringBuffer.delete(0, stringBuffer.length() - 1);
+			        stringBuffer.append("pitch: " + pitchSpeed).append("\n");
+			        stringBuffer.append("roll: " + rollSpeed).append("\n");
+			        stringBuffer.append("yaw: " + yawSpeed).append("\n");
+			    }
+			    
+			});
+		} else if (id == R.id.GimbalDirectionButton) {
+			LinkedList<String> strList = new LinkedList<String>(){{ add("pitch"); add("roll"); add("yaw");}};
+			mPopupNumberPicker = new PopupNumberPicker(m_context, strList, new pickerValueChangeListener() {
+			    
+			    @Override
+			    public void onValueChange(int pos1, int pos2) {
+			        mPopupNumberPicker.dismiss();
+			        mPopupNumberPicker = null;
+			        Log.d(TAG,"wheel gimbal direction set: "+ControlModeFunction.find(pos1+1));
+			        DJIDrone.getDjiRemoteController().setRCControlGimbalDirection(ControlModeFunction.find(pos1+1), new DJIExecuteResultCallback() {
 
-                            @Override
-                            public void onResult(DJIError mErr) {
-                                	DJIDrone.getDjiRemoteController().getRCControlGimbalDirection(new DJIRemotControllerGimbalDirectionCallBack() {
+			            @Override
+			            public void onResult(DJIError mErr) {
+			                	DJIDrone.getDjiRemoteController().getRCControlGimbalDirection(new DJIRemotControllerGimbalDirectionCallBack() {
 
-										@Override
-										public void onResult(
-												ControlModeFunction direction) {
-											// TODO Auto-generated method stub
-					                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, 
-					                        		"The control direction of the top left wheel is: " + direction.name()));
-										}
+									@Override
+									public void onResult(
+											ControlModeFunction direction) {
+										// TODO Auto-generated method stub
+				                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, 
+				                        		"The control direction of the top left wheel is: " + direction.name()));
+									}
 
   
-                                    });
-                            }
-                        });
-                    }
-                }, 250, 200, 0);
-                mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view), Gravity.CENTER, 0, 0);
-            	break;
-            }
-            
-            case R.id.SetCustomFunctionBtn : {
-                DJIDrone.getDjiRemoteController().setCustomButtonFuction(255, 255, new DJIExecuteResultCallback() {
+			                    });
+			            }
+			        });
+			    }
+			}, 250, 200, 0);
+			mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view), Gravity.CENTER, 0, 0);
+		} else if (id == R.id.SetCustomFunctionBtn) {
+			DJIDrone.getDjiRemoteController().setCustomButtonFuction(255, 255, new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorCode;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.GetCustomFunctionBtn : {
-                DJIDrone.getDjiRemoteController().getCustomerButtonFunction(new DJIRemoteControllerCustomerButtonFunctionCallBack(){
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorCode;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.GetCustomFunctionBtn) {
+			DJIDrone.getDjiRemoteController().getCustomerButtonFunction(new DJIRemoteControllerCustomerButtonFunctionCallBack(){
 
-                    @Override
-                    public void onResult(int customer1, int customer2)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "c1 =" + customer1 + " c2 =" + customer2;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetFrequencyBtn : {
-                DJIDrone.getDjiRemoteController().enterRCPairingMode(new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResult(int customer1, int customer2)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "c1 =" + customer1 + " c2 =" + customer2;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetFrequencyBtn) {
+			DJIDrone.getDjiRemoteController().enterRCPairingMode(new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorCode;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.StopFrequencyBtn : {
-                DJIDrone.getDjiRemoteController().exitRCParingMode(new DJIExecuteResultCallback() {
-                    
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorCode;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-            }
-            
-            case R.id.SetWheelSensitivityBtn : {
-                DJIDrone.getDjiRemoteController().setRCControlSensitivity(25, new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorCode;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.StopFrequencyBtn) {
+			DJIDrone.getDjiRemoteController().exitRCParingMode(new DJIExecuteResultCallback() {
+			    
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorCode;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetWheelSensitivityBtn) {
+			DJIDrone.getDjiRemoteController().setRCControlSensitivity(25, new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorCode;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.GetWheelSensitivityBtn : {
-                DJIDrone.getDjiRemoteController().getRCControlSensitivity(new DJIExecuteIntResultCallback() {
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorCode;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.GetWheelSensitivityBtn) {
+			DJIDrone.getDjiRemoteController().getRCControlSensitivity(new DJIExecuteIntResultCallback() {
 
-                    @Override
-                    public void onResult(int result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + result;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.RemoteControlAttitudeBtn : {
-                LayoutInflater inflater = LayoutInflater.from(this);
-                attitudeShowView = inflater.inflate(R.layout.show_view, null);
-                builder = new AlertDialog.Builder(RemoteControlDemoActivity.this);        
-                builder.setCancelable(true);
-                builder.setTitle("CustomerParamsSetting");
-                builder.setView(attitudeShowView);
-                builder.setOnCancelListener(new OnCancelListener() {
+			    @Override
+			    public void onResult(int result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + result;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.RemoteControlAttitudeBtn) {
+			LayoutInflater inflater = LayoutInflater.from(this);
+			attitudeShowView = inflater.inflate(R.layout.show_view, null);
+			builder = new AlertDialog.Builder(RemoteControlDemoActivity.this);
+			builder.setCancelable(true);
+			builder.setTitle("CustomerParamsSetting");
+			builder.setView(attitudeShowView);
+			builder.setOnCancelListener(new OnCancelListener() {
 
-                    @Override
-                    public void onCancel(DialogInterface dialog)
-                    {
-                        // TODO Auto-generated method stub
-                        if (null != updateTimer) {
-                            updateTimer.cancel();
-                            updateTimer.purge();
-                            updateTimer = null;
-                            
-                            updateHandler = null;
-                        }
-                        
-                    }
-                    
-                });
-                if (null == updateTimer){
-                    updateTimer = new Timer();
-                    updateTimer.schedule(new UpdateTimerTask(), 0, 11);
-                    updateHandler = new Handler();
-                }
-                builder.create().show();
-                break;
-            }
+			    @Override
+			    public void onCancel(DialogInterface dialog)
+			    {
+			        // TODO Auto-generated method stub
+			        if (null != updateTimer) {
+			            updateTimer.cancel();
+			            updateTimer.purge();
+			            updateTimer = null;
+			            
+			            updateHandler = null;
+			        }
+			        
+			    }
+			    
+			});
+			if (null == updateTimer){
+			    updateTimer = new Timer();
+			    updateTimer.schedule(new UpdateTimerTask(), 0, 11);
+			    updateHandler = new Handler();
+			}
+			builder.create().show();
+		} else if (id == R.id.get_version_btn) {
+			DJIDrone.getDjiRemoteController().getFirmwareVersion(new DJIExecuteStringResultCallback(){
 
-            case R.id.get_version_btn:
-                DJIDrone.getDjiRemoteController().getFirmwareVersion(new DJIExecuteStringResultCallback(){
-
-                    @Override
-                    public void onResult(String result)
-                    {
-                        // TODO Auto-generated method stub
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST,  "Firmware version = "+result));
-                    }
-                    
-                });
-                break;
-
-            default : 
-                break;
-        }
+			    @Override
+			    public void onResult(String result)
+			    {
+			        // TODO Auto-generated method stub
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST,  "Firmware version = "+result));
+			    }
+			    
+			});
+		} else {
+		}
+        
     }
     
     class UpdateTimerTask extends TimerTask {

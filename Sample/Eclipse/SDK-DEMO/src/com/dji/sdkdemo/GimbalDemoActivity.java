@@ -300,169 +300,139 @@ public class GimbalDemoActivity extends DemoBaseActivity implements OnClickListe
     private boolean gs = false;
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            
-            case R.id.PitchGoButton:                
-                new Thread()
-                {
-                    public void run()
-                    {
-                        String vString = mPitchGoEditText.getText().toString();
-                                                
-                        int pitchGo = 0;
-                        try {
-                            pitchGo = Integer.parseInt(vString);
-                        } catch (Exception e) {
-                            // TODO: handle exception
-                            pitchGo = 0;
-                            
-                            GimbalDemoActivity.this.runOnUiThread(new Runnable() {
-                                
-                                @Override
-                                public void run() {
-                                    // TODO Auto-generated method stub
-                                    mPitchGoEditText.setText("0");
-                                }
-                            });  
-                            
-                        }
-                        //Log.e("", "PitchGoButton click");
-                        DJIGimbalRotation mPitch = new DJIGimbalRotation(true, false,true, pitchGo);
-                        
-                        DJIDrone.getDjiGimbal().updateGimbalAttitude(mPitch,null,null);
+        int id = v.getId();
+		if (id == R.id.PitchGoButton) {
+			new Thread()
+			{
+			    public void run()
+			    {
+			        String vString = mPitchGoEditText.getText().toString();
+			                                
+			        int pitchGo = 0;
+			        try {
+			            pitchGo = Integer.parseInt(vString);
+			        } catch (Exception e) {
+			            // TODO: handle exception
+			            pitchGo = 0;
+			            
+			            GimbalDemoActivity.this.runOnUiThread(new Runnable() {
+			                
+			                @Override
+			                public void run() {
+			                    // TODO Auto-generated method stub
+			                    mPitchGoEditText.setText("0");
+			                }
+			            });  
+			            
+			        }
+			        //Log.e("", "PitchGoButton click");
+			        DJIGimbalRotation mPitch = new DJIGimbalRotation(true, false,true, pitchGo);
+			        
+			        DJIDrone.getDjiGimbal().updateGimbalAttitude(mPitch,null,null);
 
-                    }
-                }.start();
-                
-                break;  
-                
-            case R.id.YawLeftButton:                
-                new Thread()
-                {
-                    DJIGimbalRotation mYaw = new DJIGimbalRotation(true, true,false, 60);
-                    DJIGimbalRotation mYaw_stop = new DJIGimbalRotation(true, false,false, 0);
-                    public void run()
-                    {
-                            
-                        DJIDrone.getDjiGimbal().updateGimbalAttitude(null,null,mYaw);
-                        
-                        try 
-                        {
-                            Thread.sleep(150);
-                        } catch (InterruptedException e)
-                        {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        DJIDrone.getDjiGimbal().updateGimbalAttitude(null,null,mYaw_stop);
-                    }
-                }.start();
-                
-                break;  
-                
-            case R.id.YawRightButton:                
-                new Thread()
-                {
-                    DJIGimbalRotation mYaw = new DJIGimbalRotation(true, false,false, 60);
-                    DJIGimbalRotation mYaw_stop = new DJIGimbalRotation(true, false,false, 0);
-                    public void run()
-                    {
-                            
-                        DJIDrone.getDjiGimbal().updateGimbalAttitude(null,null,mYaw);
-                    
-                        try 
-                        {
-                            Thread.sleep(150);
-                        } catch (InterruptedException e)
-                        {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        DJIDrone.getDjiGimbal().updateGimbalAttitude(null,null,mYaw_stop);
-                    }
-                }.start();
-                
-                break;      
-                
-            case R.id.StartGimbalAutoCalibration : {
-                DJIDrone.getDjiGimbal().startGimbalAutoCalibration(new DJIExecuteResultCallback() {
+			    }
+			}.start();
+		} else if (id == R.id.YawLeftButton) {
+			new Thread()
+			{
+			    DJIGimbalRotation mYaw = new DJIGimbalRotation(true, true,false, 60);
+			    DJIGimbalRotation mYaw_stop = new DJIGimbalRotation(true, false,false, 0);
+			    public void run()
+			    {
+			            
+			        DJIDrone.getDjiGimbal().updateGimbalAttitude(null,null,mYaw);
+			        
+			        try 
+			        {
+			            Thread.sleep(150);
+			        } catch (InterruptedException e)
+			        {
+			            // TODO Auto-generated catch block
+			            e.printStackTrace();
+			        }
+			        DJIDrone.getDjiGimbal().updateGimbalAttitude(null,null,mYaw_stop);
+			    }
+			}.start();
+		} else if (id == R.id.YawRightButton) {
+			new Thread()
+			{
+			    DJIGimbalRotation mYaw = new DJIGimbalRotation(true, false,false, 60);
+			    DJIGimbalRotation mYaw_stop = new DJIGimbalRotation(true, false,false, 0);
+			    public void run()
+			    {
+			            
+			        DJIDrone.getDjiGimbal().updateGimbalAttitude(null,null,mYaw);
+			    
+			        try 
+			        {
+			            Thread.sleep(150);
+			        } catch (InterruptedException e)
+			        {
+			            // TODO Auto-generated catch block
+			            e.printStackTrace();
+			        }
+			        DJIDrone.getDjiGimbal().updateGimbalAttitude(null,null,mYaw_stop);
+			    }
+			}.start();
+		} else if (id == R.id.StartGimbalAutoCalibration) {
+			DJIDrone.getDjiGimbal().startGimbalAutoCalibration(new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + mErr.errorCode;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.SetFPV : {
-                DJIDrone.getDjiGimbal().setGimbalWorkMode(GimbalWorkMode.Fpv, new DJIExecuteResultCallback() {
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + mErr.errorCode;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.SetFPV) {
+			DJIDrone.getDjiGimbal().setGimbalWorkMode(GimbalWorkMode.Fpv, new DJIExecuteResultCallback() {
 
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, mErr.errorDescription));
-                    }
-                    
-                });
-                break;
-            }
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, mErr.errorDescription));
+			    }
+			    
+			});
+		} else if (id == R.id.RollFinetunePlus) {
+			DJIDrone.getDjiGimbal().setRollFinetune(10, new DJIExecuteResultCallback() {
+			        
+			        @Override
+			        public void onResult(DJIError mErr)
+			        {
 
-            case R.id.RollFinetunePlus : {
-                DJIDrone.getDjiGimbal().setRollFinetune(10, new DJIExecuteResultCallback() {
-                        
-                        @Override
-                        public void onResult(DJIError mErr)
-                        {
+			        }
+			        
+			    });
+		} else if (id == R.id.RollFinetuneMinus) {
+			DJIDrone.getDjiGimbal().setRollFinetune(-10, new DJIExecuteResultCallback() {
+			        
+			        @Override
+			        public void onResult(DJIError mErr)
+			        {
+			            // TODO Auto-generated method stub
+			        }
+			        
+			    });
+		} else if (id == R.id.get_version_btn) {
+			DJIDrone.getDjiGimbal().getFirmwareVersion(new DJIExecuteStringResultCallback(){
 
-                        }
-                        
-                    });
-                break;
-            }
-            
-            case R.id.RollFinetuneMinus : {
-                DJIDrone.getDjiGimbal().setRollFinetune(-10, new DJIExecuteResultCallback() {
-                        
-                        @Override
-                        public void onResult(DJIError mErr)
-                        {
-                            // TODO Auto-generated method stub
-                        }
-                        
-                    });
-                break;
-            }
-            
-            case R.id.get_version_btn: {
-                DJIDrone.getDjiGimbal().getFirmwareVersion(new DJIExecuteStringResultCallback(){
-
-                    @Override
-                    public void onResult(String result)
-                    {
-                        // TODO Auto-generated method stub
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST,  "Firmware version = "+result));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.get_gimbal_capacity_btn : {
-                DJIGimbalCapacity gimbalCapacity = DJIDrone.getDjiGimbal().getDJIGimbalCapacity();
-                handler.sendMessage(handler.obtainMessage(SHOWTOAST, gimbalCapacity.toString()));
-                break;
-            }
-     
-            default:
-                break;
-        }
+			    @Override
+			    public void onResult(String result)
+			    {
+			        // TODO Auto-generated method stub
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST,  "Firmware version = "+result));
+			    }
+			    
+			});
+		} else if (id == R.id.get_gimbal_capacity_btn) {
+			DJIGimbalCapacity gimbalCapacity = DJIDrone.getDjiGimbal().getDJIGimbalCapacity();
+			handler.sendMessage(handler.obtainMessage(SHOWTOAST, gimbalCapacity.toString()));
+		} else {
+		}
     }
     
     private void setResultToToast(String result){

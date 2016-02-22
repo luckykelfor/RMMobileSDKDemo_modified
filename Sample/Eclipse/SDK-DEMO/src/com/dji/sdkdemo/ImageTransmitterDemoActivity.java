@@ -323,301 +323,261 @@ public class ImageTransmitterDemoActivity extends DemoBaseActivity implements On
         // TODO Auto-generated method stub
         List<String> strlist = null;
         
-        switch (view.getId())
-        {
-            case R.id.set_it_fq_update_btn:
-                
-                strlist = new ArrayList<String>();    
-                
-                strlist.add("false");
-                strlist.add("true");
-                
-                mPopupNumberPicker = new PopupNumberPicker(m_context,
-                        strlist,
-                        new pickerValueChangeListener(){
+        int id = view.getId();
+		if (id == R.id.set_it_fq_update_btn) {
+			strlist = new ArrayList<String>();
+			strlist.add("false");
+			strlist.add("true");
+			mPopupNumberPicker = new PopupNumberPicker(m_context,
+			        strlist,
+			        new pickerValueChangeListener(){
 
-                            @Override
-                            public void onValueChange(int pos1, int pos2) {
-                                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
-                                mPopupNumberPicker.dismiss();
-                                mPopupNumberPicker = null;
-                                
-                                boolean isNeed = false;
-                                
-                                if(pos1 == 1){
-                                    DJIDrone.getDjiImageTransmitter().startNeedChannelPowerUpdates(new DJIExecuteResultCallback(){
+			            @Override
+			            public void onValueChange(int pos1, int pos2) {
+			                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
+			                mPopupNumberPicker.dismiss();
+			                mPopupNumberPicker = null;
+			                
+			                boolean isNeed = false;
+			                
+			                if(pos1 == 1){
+			                    DJIDrone.getDjiImageTransmitter().startNeedChannelPowerUpdates(new DJIExecuteResultCallback(){
 
-                                        @Override
-                                        public void onResult(DJIError mErr)
-                                        {
-                                            // TODO Auto-generated method stub
-                                            Log.d(TAG, "setNeedFrequencyPowerUpdates errorCode = "+ mErr.errorCode);
-                                            Log.d(TAG, "setNeedFrequencyPowerUpdates errorDescription = "+ mErr.errorDescription);
-                                            String result = "setNeedFrequencyPowerUpdates errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
-                                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                                        }
-                                        
-                                    });
-                                } else {
-                                    DJIDrone.getDjiImageTransmitter().stopNeedChannelPowerUpdates(new DJIExecuteResultCallback(){
+			                        @Override
+			                        public void onResult(DJIError mErr)
+			                        {
+			                            // TODO Auto-generated method stub
+			                            Log.d(TAG, "setNeedFrequencyPowerUpdates errorCode = "+ mErr.errorCode);
+			                            Log.d(TAG, "setNeedFrequencyPowerUpdates errorDescription = "+ mErr.errorDescription);
+			                            String result = "setNeedFrequencyPowerUpdates errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+			                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			                        }
+			                        
+			                    });
+			                } else {
+			                    DJIDrone.getDjiImageTransmitter().stopNeedChannelPowerUpdates(new DJIExecuteResultCallback(){
 
-                                        @Override
-                                        public void onResult(DJIError mErr)
-                                        {
-                                            // TODO Auto-generated method stub
-                                            Log.d(TAG, "setNeedFrequencyPowerUpdates errorCode = "+ mErr.errorCode);
-                                            Log.d(TAG, "setNeedFrequencyPowerUpdates errorDescription = "+ mErr.errorDescription);
-                                            String result = "setNeedFrequencyPowerUpdates errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
-                                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                                        }
-                                        
-                                    });
-                                }
-                                
-                                
+			                        @Override
+			                        public void onResult(DJIError mErr)
+			                        {
+			                            // TODO Auto-generated method stub
+			                            Log.d(TAG, "setNeedFrequencyPowerUpdates errorCode = "+ mErr.errorCode);
+			                            Log.d(TAG, "setNeedFrequencyPowerUpdates errorDescription = "+ mErr.errorDescription);
+			                            String result = "setNeedFrequencyPowerUpdates errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+			                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			                        }
+			                        
+			                    });
+			                }
+			                
+			                
 
-                            }}, 250,
-                        200, 0);
-                
-                mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
-                        Gravity.CENTER, 0, 0);
-                
-                break;
-            case R.id.set_it_channel_btn:
-                
-                strlist = new ArrayList<String>();    
-                
-                for(int i = 0; i < 32 ; i++){
-                    strlist.add(""+i);
-                }
-                
-                mPopupNumberPicker = new PopupNumberPicker(m_context,
-                        strlist,
-                        new pickerValueChangeListener(){
+			            }}, 250,
+			        200, 0);
+			mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
+			        Gravity.CENTER, 0, 0);
+		} else if (id == R.id.set_it_channel_btn) {
+			strlist = new ArrayList<String>();
+			for(int i = 0; i < 32 ; i++){
+			    strlist.add(""+i);
+			}
+			mPopupNumberPicker = new PopupNumberPicker(m_context,
+			        strlist,
+			        new pickerValueChangeListener(){
 
-                            @Override
-                            public void onValueChange(int pos1, int pos2) {
-                                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
-                                mPopupNumberPicker.dismiss();
-                                mPopupNumberPicker = null;
-                                
-                                DJIDrone.getDjiImageTransmitter().setImageTransmitterChannel(pos1, new DJIExecuteResultCallback() {
-                                    
-                                    @Override
-                                    public void onResult(DJIError mErr)
-                                    {
-                                        // TODO Auto-generated method stub
-                                        Log.d(TAG, "setImageTransmitterChannel errorCode = "+ mErr.errorCode);
-                                        Log.d(TAG, "setImageTransmitterChannel errorDescription = "+ mErr.errorDescription);
-                                        String result = "setImageTransmitterChannel errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
-                                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                                    }
-                                });
+			            @Override
+			            public void onValueChange(int pos1, int pos2) {
+			                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
+			                mPopupNumberPicker.dismiss();
+			                mPopupNumberPicker = null;
+			                
+			                DJIDrone.getDjiImageTransmitter().setImageTransmitterChannel(pos1, new DJIExecuteResultCallback() {
+			                    
+			                    @Override
+			                    public void onResult(DJIError mErr)
+			                    {
+			                        // TODO Auto-generated method stub
+			                        Log.d(TAG, "setImageTransmitterChannel errorCode = "+ mErr.errorCode);
+			                        Log.d(TAG, "setImageTransmitterChannel errorDescription = "+ mErr.errorDescription);
+			                        String result = "setImageTransmitterChannel errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+			                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			                    }
+			                });
 
-                            }}, 250,
-                        200, 0);
-                
-                mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
-                        Gravity.CENTER, 0, 0);
-                
-                break;
-            case R.id.set_it_auto_channel_btn:
-                
-                DJIDrone.getDjiImageTransmitter().setImageTransmitterChannelAutoSelect(new DJIExecuteResultCallback() {
-                    
-                    @Override
-                    public void onResult(DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        Log.d(TAG, "setImageTransmitterChannelAuto errorCode = "+ mErr.errorCode);
-                        Log.d(TAG, "setImageTransmitterChannelAuto errorDescription = "+ mErr.errorDescription);
-                        String result = "setImageTransmitterChannelAuto errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                    }
-                });
-                
-                break;
-            case R.id.get_it_channel_btn:
-                
-                DJIDrone.getDjiImageTransmitter().getImageTransmitterChannel(new DJIImageTransmitterChannelInfoCallback() {
-                    
-                    @Override
-                    public void onResult(DJIImageTransmitterChannelInfo mChannelInfo,
-                            DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        Log.d(TAG, "getImageTransmitterChannel errorCode = "+ mErr.errorCode);
-                        Log.d(TAG, "getImageTransmitterChannel errorDescription = "+ mErr.errorDescription);
-                        String result = "getImageTransmitterChannel errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode)+"\n"+
-                        "channel = "+mChannelInfo.channel+ " isAuto="+ mChannelInfo.isAuto;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                    }
-                });
-                
-                break;
-            case R.id.set_it_bandwidth_btn:
-                strlist = new ArrayList<String>();    
-                
-                strlist.add("4Mbps");
-                strlist.add("6Mbps");
-                strlist.add("8Mbps");
-                strlist.add("10Mbps");
-                
-                mPopupNumberPicker = new PopupNumberPicker(m_context,
-                        strlist,
-                        new pickerValueChangeListener(){
+			            }}, 250,
+			        200, 0);
+			mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
+			        Gravity.CENTER, 0, 0);
+		} else if (id == R.id.set_it_auto_channel_btn) {
+			DJIDrone.getDjiImageTransmitter().setImageTransmitterChannelAutoSelect(new DJIExecuteResultCallback() {
+			    
+			    @Override
+			    public void onResult(DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        Log.d(TAG, "setImageTransmitterChannelAuto errorCode = "+ mErr.errorCode);
+			        Log.d(TAG, "setImageTransmitterChannelAuto errorDescription = "+ mErr.errorDescription);
+			        String result = "setImageTransmitterChannelAuto errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			    }
+			});
+		} else if (id == R.id.get_it_channel_btn) {
+			DJIDrone.getDjiImageTransmitter().getImageTransmitterChannel(new DJIImageTransmitterChannelInfoCallback() {
+			    
+			    @Override
+			    public void onResult(DJIImageTransmitterChannelInfo mChannelInfo,
+			            DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        Log.d(TAG, "getImageTransmitterChannel errorCode = "+ mErr.errorCode);
+			        Log.d(TAG, "getImageTransmitterChannel errorDescription = "+ mErr.errorDescription);
+			        String result = "getImageTransmitterChannel errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode)+"\n"+
+			        "channel = "+mChannelInfo.channel+ " isAuto="+ mChannelInfo.isAuto;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			    }
+			});
+		} else if (id == R.id.set_it_bandwidth_btn) {
+			strlist = new ArrayList<String>();
+			strlist.add("4Mbps");
+			strlist.add("6Mbps");
+			strlist.add("8Mbps");
+			strlist.add("10Mbps");
+			mPopupNumberPicker = new PopupNumberPicker(m_context,
+			        strlist,
+			        new pickerValueChangeListener(){
 
-                            @Override
-                            public void onValueChange(int pos1, int pos2) {
-                                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
-                                mPopupNumberPicker.dismiss();
-                                mPopupNumberPicker = null;
-                                
-                                DJIImageTransmitterBandwidth mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_Unknown;
-                                if(pos1 == 0){
-                                    mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_4Mbps;
-                                }
-                                else if(pos1 == 1){
-                                    mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_6Mbps;
-                                }
-                                else if(pos1 == 2){
-                                    mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_8Mbps;
-                                }
-                                else if(pos1 == 3){
-                                    mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_10Mbps;
-                                }
-                                
-                                DJIDrone.getDjiImageTransmitter().setImageTransmitterBandWidth(mBw, new DJIExecuteResultCallback() {
-                                    
-                                    @Override
-                                    public void onResult(DJIError mErr)
-                                    {
-                                        // TODO Auto-generated method stub
-                                        Log.d(TAG, "setImageTransmitterBandWidth errorCode = "+ mErr.errorCode);
-                                        Log.d(TAG, "setImageTransmitterBandWidth errorDescription = "+ mErr.errorDescription);
-                                        String result = "setImageTransmitterBandWidth errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
-                                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                                    }
-                                });
+			            @Override
+			            public void onValueChange(int pos1, int pos2) {
+			                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
+			                mPopupNumberPicker.dismiss();
+			                mPopupNumberPicker = null;
+			                
+			                DJIImageTransmitterBandwidth mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_Unknown;
+			                if(pos1 == 0){
+			                    mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_4Mbps;
+			                }
+			                else if(pos1 == 1){
+			                    mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_6Mbps;
+			                }
+			                else if(pos1 == 2){
+			                    mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_8Mbps;
+			                }
+			                else if(pos1 == 3){
+			                    mBw = DJIImageTransmitterBandwidth.ImageTransmitter_Bandwidth_10Mbps;
+			                }
+			                
+			                DJIDrone.getDjiImageTransmitter().setImageTransmitterBandWidth(mBw, new DJIExecuteResultCallback() {
+			                    
+			                    @Override
+			                    public void onResult(DJIError mErr)
+			                    {
+			                        // TODO Auto-generated method stub
+			                        Log.d(TAG, "setImageTransmitterBandWidth errorCode = "+ mErr.errorCode);
+			                        Log.d(TAG, "setImageTransmitterBandWidth errorDescription = "+ mErr.errorDescription);
+			                        String result = "setImageTransmitterBandWidth errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+			                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			                    }
+			                });
 
-                            }}, 250,
-                        200, 0);
-                
-                mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
-                        Gravity.CENTER, 0, 0);
-                
-                
-                break;
-            case R.id.get_it_bandwidth_btn:
-            	
-                DJIDrone.getDjiImageTransmitter().getImageTransmitterChannel(new DJIImageTransmitterChannelInfoCallback() {
-                    
-                    @Override
-                    public void onResult(DJIImageTransmitterChannelInfo mChannelInfo,
-                            DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        Log.d(TAG, "getImageTransmitterChannel errorCode = "+ mErr.errorCode);
-                        Log.d(TAG, "getImageTransmitterChannel errorDescription = "+ mErr.errorDescription);
-                        if(mChannelInfo.isAuto){
-	                        String result = "The channel is set to be automatical. The bandwidht changes dynamically";
-	                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                        }else {
-                            DJIDrone.getDjiImageTransmitter().getImageTransmitterBandwidth(new DJIImageTransmitterBandwidthCallback() {
-                                
-                                @Override
-                                public void onResult(DJIImageTransmitterBandwidth mBandwidth, DJIError mErr)
-                                {
-                                    // TODO Auto-generated method stub
-                                    Log.d(TAG, "getImageTransmitterBandwidth errorCode = "+ mErr.errorCode);
-                                    Log.d(TAG, "getImageTransmitterBandwidth errorDescription = "+ mErr.errorDescription);
-                                    String result = "getImageTransmitterBandwidth errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode)+"\n"+
-                                    "bandwidth = "+mBandwidth.toString();
-                                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                                }
-                            });
-                        }
-                    }
-                });              
+			            }}, 250,
+			        200, 0);
+			mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
+			        Gravity.CENTER, 0, 0);
+		} else if (id == R.id.get_it_bandwidth_btn) {
+			DJIDrone.getDjiImageTransmitter().getImageTransmitterChannel(new DJIImageTransmitterChannelInfoCallback() {
+			    
+			    @Override
+			    public void onResult(DJIImageTransmitterChannelInfo mChannelInfo,
+			            DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        Log.d(TAG, "getImageTransmitterChannel errorCode = "+ mErr.errorCode);
+			        Log.d(TAG, "getImageTransmitterChannel errorDescription = "+ mErr.errorDescription);
+			        if(mChannelInfo.isAuto){
+			            String result = "The channel is set to be automatical. The bandwidht changes dynamically";
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			        }else {
+			            DJIDrone.getDjiImageTransmitter().getImageTransmitterBandwidth(new DJIImageTransmitterBandwidthCallback() {
+			                
+			                @Override
+			                public void onResult(DJIImageTransmitterBandwidth mBandwidth, DJIError mErr)
+			                {
+			                    // TODO Auto-generated method stub
+			                    Log.d(TAG, "getImageTransmitterBandwidth errorCode = "+ mErr.errorCode);
+			                    Log.d(TAG, "getImageTransmitterBandwidth errorDescription = "+ mErr.errorDescription);
+			                    String result = "getImageTransmitterBandwidth errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode)+"\n"+
+			                    "bandwidth = "+mBandwidth.toString();
+			                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			                }
+			            });
+			        }
+			    }
+			});
+		} else if (id == R.id.set_it_doubleouput_btn) {
+			strlist = new ArrayList<String>();
+			strlist.add("false");
+			strlist.add("true");
+			mPopupNumberPicker = new PopupNumberPicker(m_context,
+			        strlist,
+			        new pickerValueChangeListener(){
 
-                break;
-            case R.id.set_it_doubleouput_btn:
-                
-                strlist = new ArrayList<String>();    
-                
-                strlist.add("false");
-                strlist.add("true");
-                
-                mPopupNumberPicker = new PopupNumberPicker(m_context,
-                        strlist,
-                        new pickerValueChangeListener(){
+			            @Override
+			            public void onValueChange(int pos1, int pos2) {
+			                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
+			                mPopupNumberPicker.dismiss();
+			                mPopupNumberPicker = null;
+			                
+			                boolean isDouble = false;
+			                
+			                if(pos1 == 1){
+			                    isDouble = true;
+			                }
+			                
+			                DJIDrone.getDjiImageTransmitter().setImageTransmitterDoubleOutput(isDouble, new DJIExecuteResultCallback(){
 
-                            @Override
-                            public void onValueChange(int pos1, int pos2) {
-                                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
-                                mPopupNumberPicker.dismiss();
-                                mPopupNumberPicker = null;
-                                
-                                boolean isDouble = false;
-                                
-                                if(pos1 == 1){
-                                    isDouble = true;
-                                }
-                                
-                                DJIDrone.getDjiImageTransmitter().setImageTransmitterDoubleOutput(isDouble, new DJIExecuteResultCallback(){
+			                    @Override
+			                    public void onResult(DJIError mErr)
+			                    {
+			                        // TODO Auto-generated method stub
+			                        Log.d(TAG, "setImageTransmitterDoubleOutput errorCode = "+ mErr.errorCode);
+			                        Log.d(TAG, "setImageTransmitterDoubleOutput errorDescription = "+ mErr.errorDescription);
+			                        String result = "setImageTransmitterDoubleOutput errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+			                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			                    }
+			                    
+			                });
 
-                                    @Override
-                                    public void onResult(DJIError mErr)
-                                    {
-                                        // TODO Auto-generated method stub
-                                        Log.d(TAG, "setImageTransmitterDoubleOutput errorCode = "+ mErr.errorCode);
-                                        Log.d(TAG, "setImageTransmitterDoubleOutput errorDescription = "+ mErr.errorDescription);
-                                        String result = "setImageTransmitterDoubleOutput errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
-                                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                                    }
-                                    
-                                });
+			            }}, 250,
+			        200, 0);
+			mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
+			        Gravity.CENTER, 0, 0);
+		} else if (id == R.id.get_it_doubleouput_btn) {
+			DJIDrone.getDjiImageTransmitter().getImageTransmitterDoubleOutput(new DJIImageTransmitterDoubleOutputStateCallback() {
+			    
+			    @Override
+			    public void onResult(boolean mState, DJIError mErr)
+			    {
+			        // TODO Auto-generated method stub
+			        Log.d(TAG, "getImageTransmitterDoubleOutput errorCode = "+ mErr.errorCode);
+			        Log.d(TAG, "getImageTransmitterDoubleOutput errorDescription = "+ mErr.errorDescription);
+			        String result = "getImageTransmitterDoubleOutput errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode)+"\n"+
+			        "mState = "+mState;
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
+			    }
+			});
+		} else if (id == R.id.get_version_btn) {
+			DJIDrone.getDjiImageTransmitter().getFirmwareVersion(new DJIExecuteStringResultCallback(){
 
-                            }}, 250,
-                        200, 0);
-                
-                mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
-                        Gravity.CENTER, 0, 0);
-                
-                break;
-            case R.id.get_it_doubleouput_btn:
-                DJIDrone.getDjiImageTransmitter().getImageTransmitterDoubleOutput(new DJIImageTransmitterDoubleOutputStateCallback() {
-                    
-                    @Override
-                    public void onResult(boolean mState, DJIError mErr)
-                    {
-                        // TODO Auto-generated method stub
-                        Log.d(TAG, "getImageTransmitterDoubleOutput errorCode = "+ mErr.errorCode);
-                        Log.d(TAG, "getImageTransmitterDoubleOutput errorDescription = "+ mErr.errorDescription);
-                        String result = "getImageTransmitterDoubleOutput errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode)+"\n"+
-                        "mState = "+mState;
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
-                    }
-                });
-
-                break;
-                
-            case R.id.get_version_btn:
-                DJIDrone.getDjiImageTransmitter().getFirmwareVersion(new DJIExecuteStringResultCallback(){
-
-                    @Override
-                    public void onResult(String result)
-                    {
-                        // TODO Auto-generated method stub
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST,  "Firmware version = "+result));
-                    }
-                    
-                });
-                break;
-                
-            default:
-                break;
-        }
+			    @Override
+			    public void onResult(String result)
+			    {
+			        // TODO Auto-generated method stub
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST,  "Firmware version = "+result));
+			    }
+			    
+			});
+		} else {
+		}
 
     }
 

@@ -488,349 +488,317 @@ public class GsProtocolJoystickDemoActivity extends DemoBaseActivity implements 
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            case R.id.OpenGsButton:
-                if(!checkGetHomePoint()) return;
-                
-                DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack(){
+        int id = v.getId();
+		if (id == R.id.OpenGsButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack(){
 
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                }); 
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.Rotate30) {
+			DJIDrone.getDjiGroundStation().setHorizontalControlCoordinateSystem(
+			        DJINavigationFlightControlCoordinateSystem.Navigation_Flight_Control_Coordinate_System_Ground);
+			DJIDrone.getDjiGroundStation().setVerticalControlMode(
+			    DJINavigationFlightControlVerticalControlMode.Navigation_Flight_Control_Vertical_Control_Velocity);
+			DJIDrone.getDjiGroundStation().setHorizontalControlMode(
+			    DJINavigationFlightControlHorizontalControlMode.Navigation_Flight_Control_Horizontal_Control_Velocity);
+			DJIDrone.getDjiGroundStation().setYawControlMode(
+			    DJINavigationFlightControlYawControlMode.Navigation_Flight_Control_Yaw_Control_Angle);
+			for (int i = 0; i < 100; i++) {
+				DJIDrone.getDjiGroundStation().sendFlightControlData(30f, 0, 0, 0,
 
-                break;
-            case R.id.Rotate30:
-            	DJIDrone.getDjiGroundStation().setHorizontalControlCoordinateSystem(
-                        DJINavigationFlightControlCoordinateSystem.Navigation_Flight_Control_Coordinate_System_Ground);
-                 	DJIDrone.getDjiGroundStation().setVerticalControlMode(
-                        DJINavigationFlightControlVerticalControlMode.Navigation_Flight_Control_Vertical_Control_Velocity);
-                 	DJIDrone.getDjiGroundStation().setHorizontalControlMode(
-                        DJINavigationFlightControlHorizontalControlMode.Navigation_Flight_Control_Horizontal_Control_Velocity);
-                 	DJIDrone.getDjiGroundStation().setYawControlMode(
-                        DJINavigationFlightControlYawControlMode.Navigation_Flight_Control_Yaw_Control_Angle);
-                 	for (int i = 0; i < 100; i++) {
-	            		DJIDrone.getDjiGroundStation().sendFlightControlData(30f, 0, 0, 0,
-	
-	            				new DJIExecuteResultCallback() {
-	            			@Override
-	            			public void onResult(DJIError djiError) {
+						new DJIExecuteResultCallback() {
+					@Override
+					public void onResult(DJIError djiError) {
 
-	            			}
-	            		});
-	            		//命令协议发送接口为5Hz频率，因此暂停200MS
-	            		SystemClock.sleep(25);
-                 	}
-            		break;
-            case R.id.Rotate60:
-            	DJIDrone.getDjiGroundStation().setHorizontalControlCoordinateSystem(
-                        DJINavigationFlightControlCoordinateSystem.Navigation_Flight_Control_Coordinate_System_Ground);
-                 	DJIDrone.getDjiGroundStation().setVerticalControlMode(
-                        DJINavigationFlightControlVerticalControlMode.Navigation_Flight_Control_Vertical_Control_Velocity);
-                 	DJIDrone.getDjiGroundStation().setHorizontalControlMode(
-                        DJINavigationFlightControlHorizontalControlMode.Navigation_Flight_Control_Horizontal_Control_Velocity);
-                 	DJIDrone.getDjiGroundStation().setYawControlMode(
-                        DJINavigationFlightControlYawControlMode.Navigation_Flight_Control_Yaw_Control_Angle);
-                 	
-                 	for (int i = 0; i < 100; i++) {
-	            		DJIDrone.getDjiGroundStation().sendFlightControlData(60f, 0, 0, 0,
-	
-	            				new DJIExecuteResultCallback() {
-	            			@Override
-	            			public void onResult(DJIError djiError) {
-	
-	            			}
-	            		});
-	            		//命令协议发送接口为5Hz频率，因此暂停200MS
-	            		SystemClock.sleep(25);
-                 	}
-            		break;
-            case R.id.Rotate120:
-            	DJIDrone.getDjiGroundStation().setHorizontalControlCoordinateSystem(
-                        DJINavigationFlightControlCoordinateSystem.Navigation_Flight_Control_Coordinate_System_Ground);
-                 	DJIDrone.getDjiGroundStation().setVerticalControlMode(
-                        DJINavigationFlightControlVerticalControlMode.Navigation_Flight_Control_Vertical_Control_Velocity);
-                 	DJIDrone.getDjiGroundStation().setHorizontalControlMode(
-                        DJINavigationFlightControlHorizontalControlMode.Navigation_Flight_Control_Horizontal_Control_Velocity);
-                 	DJIDrone.getDjiGroundStation().setYawControlMode(
-                        DJINavigationFlightControlYawControlMode.Navigation_Flight_Control_Yaw_Control_Angle);
-                 	
-                 	for (int i = 0; i < 100; i++) {
-	            		DJIDrone.getDjiGroundStation().sendFlightControlData(120f, 0, 0, 0,
-	
-	            				new DJIExecuteResultCallback() {
-	            			@Override
-	            			public void onResult(DJIError djiError) {
-	            				
-	            			}
-	            		});
-	            		//命令协议发送接口为5Hz频率，因此暂停200MS
-	            		SystemClock.sleep(25);
-                 	}
-            		break;
-            case R.id.AddWaypointButton:
-                if(!checkGetHomePoint()) return;
-                
-                if(DJIDrone.getDroneType() == DJIDroneType.DJIDrone_Vision){
-                  //north
-                    DJIGroundStationWaypoint mWayPoint1 = new DJIGroundStationWaypoint(homeLocationLatitude+0.0000899322, homeLocationLongitude);
-                    mWayPoint1.altitude = 15f;
-                    mWayPoint1.speed = 2; // slow 2
-                    mWayPoint1.heading = 0;
-                    mWayPoint1.maxReachTime = 999; 
-                    mWayPoint1.stayTime = 10;       
-                    mWayPoint1.turnMode = 1;
-    
-                    //east
-                    DJIGroundStationWaypoint mWayPoint2 = new DJIGroundStationWaypoint(homeLocationLatitude, homeLocationLongitude+0.0000899322);
-                    mWayPoint2.altitude = 5f;
-                    mWayPoint2.speed = 2; // slow 2
-                    mWayPoint2.heading = 80;
-                    mWayPoint2.maxReachTime = 999; 
-                    mWayPoint2.stayTime = 20;  
-                    mWayPoint2.turnMode = 1;
+					}
+				});
+				//命令协议发送接口为5Hz频率，因此暂停200MS
+				SystemClock.sleep(25);
+			}
+		} else if (id == R.id.Rotate60) {
+			DJIDrone.getDjiGroundStation().setHorizontalControlCoordinateSystem(
+			        DJINavigationFlightControlCoordinateSystem.Navigation_Flight_Control_Coordinate_System_Ground);
+			DJIDrone.getDjiGroundStation().setVerticalControlMode(
+			    DJINavigationFlightControlVerticalControlMode.Navigation_Flight_Control_Vertical_Control_Velocity);
+			DJIDrone.getDjiGroundStation().setHorizontalControlMode(
+			    DJINavigationFlightControlHorizontalControlMode.Navigation_Flight_Control_Horizontal_Control_Velocity);
+			DJIDrone.getDjiGroundStation().setYawControlMode(
+			    DJINavigationFlightControlYawControlMode.Navigation_Flight_Control_Yaw_Control_Angle);
+			for (int i = 0; i < 100; i++) {
+				DJIDrone.getDjiGroundStation().sendFlightControlData(60f, 0, 0, 0,
 
-                    mTask.addWaypoint(mWayPoint2);
+						new DJIExecuteResultCallback() {
+					@Override
+					public void onResult(DJIError djiError) {
 
-                    //south
-                    DJIGroundStationWaypoint mWayPoint3 = new DJIGroundStationWaypoint(homeLocationLatitude-0.0000899322, homeLocationLongitude);
-                    mWayPoint3.altitude = 30f;
-                    mWayPoint3.speed = 2; // slow 2
-                    mWayPoint3.heading = -60;
-                    mWayPoint3.maxReachTime = 999; 
-                    mWayPoint3.stayTime = 25;     
-                    mWayPoint3.turnMode = 1;
-                    
-                    mTask.addWaypoint(mWayPoint3);
-                    mTask.wayPointCount = mTask.getAllWaypoint().size();
-                }
-                else{
-                    //north
-                    DJIGroundStationWaypoint mWayPoint1 = new DJIGroundStationWaypoint(homeLocationLatitude+0.0000899322, homeLocationLongitude);
-                    mWayPoint1.action.actionRepeat = 1;
-                    mWayPoint1.altitude = 15f;
-                    mWayPoint1.heading = 0;
-                    mWayPoint1.actionTimeout = 10;       
-                    mWayPoint1.turnMode = 1;
-                    mWayPoint1.dampingDistance = 1.5f;
-                    mWayPoint1.hasAction = true;
-                    
-                    mWayPoint1.addAction(GroundStationOnWayPointAction.Way_Point_Action_Simple_Shot, 1);
-                    mWayPoint1.addAction(GroundStationOnWayPointAction.Way_Point_Action_Video_Start, 0);
-                    mWayPoint1.addAction(GroundStationOnWayPointAction.Way_Point_Action_Video_Stop,  0);
-                    mTask.addWaypoint(mWayPoint1);
-                    
-                    //east
-                    DJIGroundStationWaypoint mWayPoint2 = new DJIGroundStationWaypoint(homeLocationLatitude, homeLocationLongitude+0.0000899322);
-                    mWayPoint2.action.actionRepeat = 1;
-                    mWayPoint2.altitude = 20f;
-                    mWayPoint2.heading = 80;
-                    mWayPoint2.actionTimeout = 20;  
-                    mWayPoint2.turnMode = 1;
-                    mWayPoint2.dampingDistance = 2.5f;
-                    mWayPoint2.hasAction = true;
-                    
-                    mWayPoint2.addAction(GroundStationOnWayPointAction.Way_Point_Action_Craft_Yaw, -130);
-                    
-                    mTask.addWaypoint(mWayPoint2);
+					}
+				});
+				//命令协议发送接口为5Hz频率，因此暂停200MS
+				SystemClock.sleep(25);
+			}
+		} else if (id == R.id.Rotate120) {
+			DJIDrone.getDjiGroundStation().setHorizontalControlCoordinateSystem(
+			        DJINavigationFlightControlCoordinateSystem.Navigation_Flight_Control_Coordinate_System_Ground);
+			DJIDrone.getDjiGroundStation().setVerticalControlMode(
+			    DJINavigationFlightControlVerticalControlMode.Navigation_Flight_Control_Vertical_Control_Velocity);
+			DJIDrone.getDjiGroundStation().setHorizontalControlMode(
+			    DJINavigationFlightControlHorizontalControlMode.Navigation_Flight_Control_Horizontal_Control_Velocity);
+			DJIDrone.getDjiGroundStation().setYawControlMode(
+			    DJINavigationFlightControlYawControlMode.Navigation_Flight_Control_Yaw_Control_Angle);
+			for (int i = 0; i < 100; i++) {
+				DJIDrone.getDjiGroundStation().sendFlightControlData(120f, 0, 0, 0,
 
-                    //south
-                    DJIGroundStationWaypoint mWayPoint3 = new DJIGroundStationWaypoint(homeLocationLatitude-0.0000899322, homeLocationLongitude);
-                    mWayPoint3.action.actionRepeat = 1;
-                    mWayPoint3.altitude = 30f;
-                    mWayPoint3.heading = -60;
-                    mWayPoint3.actionTimeout = 25;     
-                    mWayPoint3.turnMode = 1;
-                    mWayPoint3.dampingDistance = 1.0f;
-                    mWayPoint3.hasAction = true;
-                    
-                    mWayPoint3.addAction(GroundStationOnWayPointAction.Way_Point_Action_Gimbal_Pitch, -89);
-                    mTask.addWaypoint(mWayPoint3);
-                    
-                    mTask.finishAction = DJIGroundStationFinishAction.Go_Home;
-                    mTask.movingMode = DJIGroundStationMovingMode.GSHeadingUsingWaypointHeading;
-                    mTask.pathMode = DJIGroundStationPathMode.Point_To_Point;
-                    mTask.wayPointCount = mTask.getAllWaypoint().size();
-                }
-                
-                break;
-                
-            case R.id.UploadWaypointButton:
-                if(!checkGetHomePoint()) return;
-                
-                DJIDrone.getDjiGroundStation().uploadGroundStationTask(mTask, new DJIGroundStationExecuteCallBack(){
+						new DJIExecuteResultCallback() {
+					@Override
+					public void onResult(DJIError djiError) {
+						
+					}
+				});
+				//命令协议发送接口为5Hz频率，因此暂停200MS
+				SystemClock.sleep(25);
+			}
+		} else if (id == R.id.AddWaypointButton) {
+			if(!checkGetHomePoint()) return;
+			if(DJIDrone.getDroneType() == DJIDroneType.DJIDrone_Vision){
+			  //north
+			    DJIGroundStationWaypoint mWayPoint1 = new DJIGroundStationWaypoint(homeLocationLatitude+0.0000899322, homeLocationLongitude);
+			    mWayPoint1.altitude = 15f;
+			    mWayPoint1.speed = 2; // slow 2
+			    mWayPoint1.heading = 0;
+			    mWayPoint1.maxReachTime = 999; 
+			    mWayPoint1.stayTime = 10;       
+			    mWayPoint1.turnMode = 1;
+   
+			    //east
+			    DJIGroundStationWaypoint mWayPoint2 = new DJIGroundStationWaypoint(homeLocationLatitude, homeLocationLongitude+0.0000899322);
+			    mWayPoint2.altitude = 5f;
+			    mWayPoint2.speed = 2; // slow 2
+			    mWayPoint2.heading = 80;
+			    mWayPoint2.maxReachTime = 999; 
+			    mWayPoint2.stayTime = 20;  
+			    mWayPoint2.turnMode = 1;
 
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });                
-                break;
-                
-            case R.id.TakeOffButton:
-                if(!checkGetHomePoint()) return;
-                DJIDrone.getDjiGroundStation().startGroundStationTask(new DJIGroundStationExecuteCallBack(){
+			    mTask.addWaypoint(mWayPoint2);
 
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                });                
-                break;
-                
-            case R.id.GohomeButton:
-                if(!checkGetHomePoint()) return;
-                DJIDrone.getDjiGroundStation().goHome(new DJIGroundStationExecuteCallBack(){
+			    //south
+			    DJIGroundStationWaypoint mWayPoint3 = new DJIGroundStationWaypoint(homeLocationLatitude-0.0000899322, homeLocationLongitude);
+			    mWayPoint3.altitude = 30f;
+			    mWayPoint3.speed = 2; // slow 2
+			    mWayPoint3.heading = -60;
+			    mWayPoint3.maxReachTime = 999; 
+			    mWayPoint3.stayTime = 25;     
+			    mWayPoint3.turnMode = 1;
+			    
+			    mTask.addWaypoint(mWayPoint3);
+			    mTask.wayPointCount = mTask.getAllWaypoint().size();
+			}
+			else{
+			    //north
+			    DJIGroundStationWaypoint mWayPoint1 = new DJIGroundStationWaypoint(homeLocationLatitude+0.0000899322, homeLocationLongitude);
+			    mWayPoint1.action.actionRepeat = 1;
+			    mWayPoint1.altitude = 15f;
+			    mWayPoint1.heading = 0;
+			    mWayPoint1.actionTimeout = 10;       
+			    mWayPoint1.turnMode = 1;
+			    mWayPoint1.dampingDistance = 1.5f;
+			    mWayPoint1.hasAction = true;
+			    
+			    mWayPoint1.addAction(GroundStationOnWayPointAction.Way_Point_Action_Simple_Shot, 1);
+			    mWayPoint1.addAction(GroundStationOnWayPointAction.Way_Point_Action_Video_Start, 0);
+			    mWayPoint1.addAction(GroundStationOnWayPointAction.Way_Point_Action_Video_Stop,  0);
+			    mTask.addWaypoint(mWayPoint1);
+			    
+			    //east
+			    DJIGroundStationWaypoint mWayPoint2 = new DJIGroundStationWaypoint(homeLocationLatitude, homeLocationLongitude+0.0000899322);
+			    mWayPoint2.action.actionRepeat = 1;
+			    mWayPoint2.altitude = 20f;
+			    mWayPoint2.heading = 80;
+			    mWayPoint2.actionTimeout = 20;  
+			    mWayPoint2.turnMode = 1;
+			    mWayPoint2.dampingDistance = 2.5f;
+			    mWayPoint2.hasAction = true;
+			    
+			    mWayPoint2.addAction(GroundStationOnWayPointAction.Way_Point_Action_Craft_Yaw, -130);
+			    
+			    mTask.addWaypoint(mWayPoint2);
 
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
+			    //south
+			    DJIGroundStationWaypoint mWayPoint3 = new DJIGroundStationWaypoint(homeLocationLatitude-0.0000899322, homeLocationLongitude);
+			    mWayPoint3.action.actionRepeat = 1;
+			    mWayPoint3.altitude = 30f;
+			    mWayPoint3.heading = -60;
+			    mWayPoint3.actionTimeout = 25;     
+			    mWayPoint3.turnMode = 1;
+			    mWayPoint3.dampingDistance = 1.0f;
+			    mWayPoint3.hasAction = true;
+			    
+			    mWayPoint3.addAction(GroundStationOnWayPointAction.Way_Point_Action_Gimbal_Pitch, -89);
+			    mTask.addWaypoint(mWayPoint3);
+			    
+			    mTask.finishAction = DJIGroundStationFinishAction.Go_Home;
+			    mTask.movingMode = DJIGroundStationMovingMode.GSHeadingUsingWaypointHeading;
+			    mTask.pathMode = DJIGroundStationPathMode.Point_To_Point;
+			    mTask.wayPointCount = mTask.getAllWaypoint().size();
+			}
+		} else if (id == R.id.UploadWaypointButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().uploadGroundStationTask(mTask, new DJIGroundStationExecuteCallBack(){
 
-                });                
-                break;   
-                
-            case R.id.CloseGsButton:
-                if(!checkGetHomePoint()) return;
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.TakeOffButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().startGroundStationTask(new DJIGroundStationExecuteCallBack(){
 
-                DJIDrone.getDjiGroundStation().closeGroundStation(new DJIGroundStationExecuteCallBack(){
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			});
+		} else if (id == R.id.GohomeButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().goHome(new DJIGroundStationExecuteCallBack(){
 
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
 
-                });  
-                break;  
-                
-            case R.id.PauseButton:
-                if(!checkGetHomePoint()) return;
-                DJIDrone.getDjiGroundStation().pauseGroundStationTask(new DJIGroundStationExecuteCallBack(){
+			});
+		} else if (id == R.id.CloseGsButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().closeGroundStation(new DJIGroundStationExecuteCallBack(){
 
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                });  
-                break;  
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
 
-            case R.id.ResumeButton:
-                if(!checkGetHomePoint()) return;
-                
-                DJIDrone.getDjiGroundStation().continueGroundStationTask(new DJIGroundStationExecuteCallBack(){
+			});
+		} else if (id == R.id.PauseButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().pauseGroundStationTask(new DJIGroundStationExecuteCallBack(){
 
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "result =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			});
+		} else if (id == R.id.ResumeButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().continueGroundStationTask(new DJIGroundStationExecuteCallBack(){
 
-                });  
-                break; 
-                
-            case R.id.OneKeyFlyButton:
-            	if(!checkGetHomePoint()) {            		
-            		//DealErrorWithVibrate();
-            		return;            	
-            	}
-            	
-            	if(!isFlying){
-            		DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack(){
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "result =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
 
-                        @Override
-                        public void onResult(GroundStationResult result) {
-                            // TODO Auto-generated method stub
-                            String ResultsString = "opengs result =" + result.toString();
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                            
-                            if(result == GroundStationResult.GS_Result_Success){
-                            	
-                            	//one key fly
-                                DJIDrone.getDjiGroundStation().oneKeyFly(new DJIGroundStationExecuteCallBack(){                            	
-    								@Override
-    								public void onResult(GroundStationResult result) {
-    									// TODO Auto-generated method stub
-    									
-    									String ResultsString = "one key fly result =" + result.toString();
-    			                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-    			                        
-    									if(result == GroundStationResult.GS_Result_Success){
-    									    
-    									    if(DJIDrone.getDroneType() == DJIDroneType.DJIDrone_Vision){
-    	                                           mCheckModeForPauseTimer = new Timer();
-    	                                            CheckModeForPauseTask mCheckTask = new CheckModeForPauseTask();
-    	                                            mCheckModeForPauseTimer.schedule(mCheckTask, 100, 1000);
-    									    }
-    									    else{
-    									        DealSuccessWithVibrate();
-    									    }
-    									}
-    									else{
-    										DealErrorWithVibrate();
-    									}
-    								}
-                                	
-                                });                         
-                            }
-                            else{
-                            	DealErrorWithVibrate();
-                            }
-                            
-                        }
-                        
-                    });
-            	}
-            	else{
-            		DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack(){
+			});
+		} else if (id == R.id.OneKeyFlyButton) {
+			if(!checkGetHomePoint()) {            		
+				//DealErrorWithVibrate();
+				return;            	
+			}
+			if(!isFlying){
+				DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack(){
 
-                        @Override
-                        public void onResult(GroundStationResult result) {
-                            // TODO Auto-generated method stub
-                            String ResultsString = "opengs result =" + result.toString();
-                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                            
-                            if(result == GroundStationResult.GS_Result_Success){
-                            	
-                                if(DJIDrone.getDroneType() == DJIDroneType.DJIDrone_Vision){
-                                    mCheckModeForPauseTimer = new Timer();
-                                    CheckModeForPauseTask mCheckTask = new CheckModeForPauseTask();
-                                    mCheckModeForPauseTimer.schedule(mCheckTask, 100, 1000);
-                                }
-                                else{
-                                    DealSuccessWithVibrate();
-                                } 
-                                
-                            }
-                            else{
-                            	DealErrorWithVibrate();
-                            }
-                            
-                        }
-                        
-                    });
-            	} 
-            	break;            
+			        @Override
+			        public void onResult(GroundStationResult result) {
+			            // TODO Auto-generated method stub
+			            String ResultsString = "opengs result =" + result.toString();
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			            
+			            if(result == GroundStationResult.GS_Result_Success){
+			            	
+			            	//one key fly
+			                DJIDrone.getDjiGroundStation().oneKeyFly(new DJIGroundStationExecuteCallBack(){                            	
+								@Override
+								public void onResult(GroundStationResult result) {
+									// TODO Auto-generated method stub
+									
+									String ResultsString = "one key fly result =" + result.toString();
+			                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			                        
+									if(result == GroundStationResult.GS_Result_Success){
+									    
+									    if(DJIDrone.getDroneType() == DJIDroneType.DJIDrone_Vision){
+			                                   mCheckModeForPauseTimer = new Timer();
+			                                    CheckModeForPauseTask mCheckTask = new CheckModeForPauseTask();
+			                                    mCheckModeForPauseTimer.schedule(mCheckTask, 100, 1000);
+									    }
+									    else{
+									        DealSuccessWithVibrate();
+									    }
+									}
+									else{
+										DealErrorWithVibrate();
+									}
+								}
+			                	
+			                });                         
+			            }
+			            else{
+			            	DealErrorWithVibrate();
+			            }
+			            
+			        }
+			        
+			    });
+			}
+			else{
+				DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack(){
 
-            default:
-                break;
-        }
+			        @Override
+			        public void onResult(GroundStationResult result) {
+			            // TODO Auto-generated method stub
+			            String ResultsString = "opengs result =" + result.toString();
+			            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			            
+			            if(result == GroundStationResult.GS_Result_Success){
+			            	
+			                if(DJIDrone.getDroneType() == DJIDroneType.DJIDrone_Vision){
+			                    mCheckModeForPauseTimer = new Timer();
+			                    CheckModeForPauseTask mCheckTask = new CheckModeForPauseTask();
+			                    mCheckModeForPauseTimer.schedule(mCheckTask, 100, 1000);
+			                }
+			                else{
+			                    DealSuccessWithVibrate();
+			                } 
+			                
+			            }
+			            else{
+			            	DealErrorWithVibrate();
+			            }
+			            
+			        }
+			        
+			    });
+			}
+		} else {
+		}
     }
 
     /** 

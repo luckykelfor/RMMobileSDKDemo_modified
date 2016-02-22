@@ -258,118 +258,98 @@ public class GsProtocolIocDemoActivity extends DemoBaseActivity implements OnCli
     public void onClick(View v) {
         List<String> strlist = null;
 
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            case R.id.OpenGsButton:
-                if(!checkGetHomePoint()) return;
-            	
-                DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack(){
+        int id = v.getId();
+		if (id == R.id.OpenGsButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack(){
 
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "open gs code =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                }); 
-                
-                break;
-                
-            case R.id.EnterIocButton:
-                if(!checkGetHomePoint()) return;
-                
-                if (mPopupNumberPicker != null)
-                    mPopupNumberPicker.dismiss();
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "open gs code =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.EnterIocButton) {
+			if(!checkGetHomePoint()) return;
+			if (mPopupNumberPicker != null)
+			    mPopupNumberPicker.dismiss();
+			strlist = new ArrayList<String>();
+			strlist.add("CourseLock");
+			strlist.add("HomeLock");
+			mPopupNumberPicker = new PopupNumberPicker(m_context,
+			        strlist,
+			        new pickerValueChangeListener(){
 
-                strlist = new ArrayList<String>();                
+			            @Override
+			            public void onValueChange(int pos1, int pos2) {
+			                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
+			                mPopupNumberPicker.dismiss();
+			                mPopupNumberPicker = null;
+			                
+			                DJIGroundStationIocType mIocType = DJIGroundStationIocType.IOCTypeCourseLock;
+			                if(pos1 == 0){
+			                    mIocType = DJIGroundStationIocType.IOCTypeCourseLock;
+			                    
+			                    DJIDrone.getDjiMainController().setAircraftFuctionType(DJIMcFunctionType.Lock_Course, new DJIExecuteBooleanResultCallback() {
+			                        
+			                        @Override
+			                        public void onResult(boolean result)
+			                        {
+			                            // TODO Auto-generated method stub
+			                            String ResultsString = "Lock course code =" + result;
+			                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));                                            
+			                        }
+			                    });
+			                }
+			                else{
+			                    mIocType = DJIGroundStationIocType.IOCTypeHomeLock;
+			                }
+			                
+			                
+			                DJIDrone.getDjiGroundStation().enterIocMode(mIocType, new DJIGroundStationExecuteCallBack(){
 
-                strlist.add("CourseLock");
-                strlist.add("HomeLock");
+			                    @Override
+			                    public void onResult(GroundStationResult result) {
+			                        // TODO Auto-generated method stub
+			                        String ResultsString = "enter ioc code =" + result.toString();
+			                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			                    }
+			                    
+			                }); 
+			                
+			                
+			            }}, 250,
+			        200, 0);
+			mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
+			        Gravity.CENTER, 0, 0);
+		} else if (id == R.id.ExitIocButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().exitIocMode(new DJIGroundStationExecuteCallBack(){
 
-                mPopupNumberPicker = new PopupNumberPicker(m_context,
-                        strlist,
-                        new pickerValueChangeListener(){
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "exit ioc code =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.CloseGsButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().closeGroundStation(new DJIGroundStationExecuteCallBack(){
 
-                            @Override
-                            public void onValueChange(int pos1, int pos2) {
-                                //Log.d(TAG,"pos1 = "+ pos1 +", pos2 = "+pos2);
-                                mPopupNumberPicker.dismiss();
-                                mPopupNumberPicker = null;
-                                
-                                DJIGroundStationIocType mIocType = DJIGroundStationIocType.IOCTypeCourseLock;
-                                if(pos1 == 0){
-                                    mIocType = DJIGroundStationIocType.IOCTypeCourseLock;
-                                    
-                                    DJIDrone.getDjiMainController().setAircraftFuctionType(DJIMcFunctionType.Lock_Course, new DJIExecuteBooleanResultCallback() {
-                                        
-                                        @Override
-                                        public void onResult(boolean result)
-                                        {
-                                            // TODO Auto-generated method stub
-                                            String ResultsString = "Lock course code =" + result;
-                                            handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));                                            
-                                        }
-                                    });
-                                }
-                                else{
-                                    mIocType = DJIGroundStationIocType.IOCTypeHomeLock;
-                                }
-                                
-                                
-                                DJIDrone.getDjiGroundStation().enterIocMode(mIocType, new DJIGroundStationExecuteCallBack(){
+			    @Override
+			    public void onResult(GroundStationResult result) {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "close gs code =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
 
-                                    @Override
-                                    public void onResult(GroundStationResult result) {
-                                        // TODO Auto-generated method stub
-                                        String ResultsString = "enter ioc code =" + result.toString();
-                                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                                    }
-                                    
-                                }); 
-                                
-                                
-                            }}, 250,
-                        200, 0);
-                mPopupNumberPicker.showAtLocation(findViewById(R.id.my_content_view),
-                        Gravity.CENTER, 0, 0);
-                
-                break;
-                
-            case R.id.ExitIocButton:
-                if(!checkGetHomePoint()) return;
-                
-                DJIDrone.getDjiGroundStation().exitIocMode(new DJIGroundStationExecuteCallBack(){
-
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "exit ioc code =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                }); 
-                
-                break;            
-                
-            case R.id.CloseGsButton:
-                if(!checkGetHomePoint()) return;
-                
-                DJIDrone.getDjiGroundStation().closeGroundStation(new DJIGroundStationExecuteCallBack(){
-
-                    @Override
-                    public void onResult(GroundStationResult result) {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "close gs code =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-
-                });  
-                break;  
-
-            default:
-                break;
-        }
+			});
+		} else {
+		}
     }
 
     /** 

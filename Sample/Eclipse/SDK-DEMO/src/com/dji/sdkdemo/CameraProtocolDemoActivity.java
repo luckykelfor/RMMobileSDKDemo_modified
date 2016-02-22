@@ -15,12 +15,9 @@ import dji.sdk.api.DJIError;
 import dji.sdk.api.Camera.DJICameraFileNamePushInfo;
 import dji.sdk.api.Camera.DJICameraPlaybackState;
 import dji.sdk.api.Camera.DJICameraSDCardInfo;
-import dji.sdk.api.Camera.DJICameraShutterSpeed;
 import dji.sdk.api.Camera.DJICameraSystemState;
-import dji.sdk.api.Camera.DJIInspireCamera;
 import dji.sdk.api.Camera.DJICameraDecodeTypeDef.DecoderType;
 import dji.sdk.api.Camera.DJICameraSettingsTypeDef.*;
-import dji.sdk.api.media.DJIMedia;
 import dji.sdk.interfaces.DJICameraFileNameInfoCallBack;
 import dji.sdk.interfaces.DJICameraPlayBackStateCallBack;
 import dji.sdk.interfaces.DJICameraSdCardInfoCallBack;
@@ -28,12 +25,9 @@ import dji.sdk.interfaces.DJICameraSystemStateCallBack;
 import dji.sdk.interfaces.DJIExecuteResultCallback;
 import dji.sdk.interfaces.DJIExecuteStringResultCallback;
 import dji.sdk.interfaces.DJIFileDownloadCallBack;
-import dji.sdk.interfaces.DJIMediaFetchCallBack;
 import dji.sdk.interfaces.DJIReceivedVideoDataCallBack;
-import dji.sdk.util.DjiLocationCoordinate2D;
 import dji.sdk.widget.DjiGLSurfaceView;
-import android.R.integer;
-import android.app.Activity;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -157,9 +151,12 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
     private String mPlayBackStateString = "";
     private int mSdcardRemainSize = 0;
     private int mSdcardRemainCaptureCnt;
-    
+
     private DJICameraPlayBackStateCallBack mCameraPlayBackStateCallBack = null;
-    
+
+
+    //爪子
+    private  Button mHandleO, mHandleS,mHandleUp,mHandleDown;
     class Task extends TimerTask {
         //int times = 1;
 
@@ -243,10 +240,9 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
         };
         
         DJIDrone.getDjiCamera().setDjiCameraSystemStateCallBack(new DJICameraSystemStateCallBack() {
-            
+
             @Override
-            public void onResult(DJICameraSystemState state)
-            {
+            public void onResult(DJICameraSystemState state) {
                 // TODO Auto-generated method stub
                 if (state.isTakingContinusPhoto) {
                     handler.sendMessage(handler.obtainMessage(SHOWTOAST, "isTakingContinuousPhoto"));
@@ -322,14 +318,12 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
         DJIDrone.getDjiCamera().setDJICameraPlayBackStateCallBack(mCameraPlayBackStateCallBack);
         
         DJIDrone.getDjiCamera().setDjiCameraSdcardInfoCallBack(new DJICameraSdCardInfoCallBack() {
-            
 
 
-			@Override
-            public void onResult(DJICameraSDCardInfo mInfo)
-            {
+            @Override
+            public void onResult(DJICameraSDCardInfo mInfo) {
                 // TODO Auto-generated method stub
-                if(mSdcardRemainSize != mInfo.remainSize){
+                if (mSdcardRemainSize != mInfo.remainSize) {
 
                     //String result = "sdcard remain size =" + mSdcardRemainSize ;
                     //handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
@@ -412,7 +406,15 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
         
         m_camera_get_resolutionandframerate_btn = (Button) findViewById(R.id.camera_get_resolutionandframerate_btn);
         m_camera_set_resolutionandframerate_btn = (Button) findViewById(R.id.camera_set_resolutionandframerate_btn);
-        
+
+        //爪子
+        mHandleO = (Button)findViewById(R.id.button_HandleO);
+
+        mHandleDown = (Button)findViewById(R.id.button_HandleDown);
+        mHandleUp = (Button)findViewById(R.id.button_HandleUp);
+        mHandleS = (Button)findViewById(R.id.button_HandleS);
+
+
         mStartTakePhotoBtn.setOnClickListener(this);
         mStopTakePhotoBtn.setOnClickListener(this);
         mStartRecordingBtn.setOnClickListener(this);
@@ -483,8 +485,17 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
         m_camera_get_resolutionandframerate_btn.setOnClickListener(this);
 
 
+        //爪子
+        mHandleO.setOnClickListener(this);
+        mHandleS.setOnClickListener(this);
+        mHandleUp.setOnClickListener(this);
+        mHandleDown.setOnClickListener(this);
+
         mConnectStateTextView = (TextView)findViewById(R.id.ConnectStateCameraTextView);
-     
+
+
+
+
         m_context = this.getApplicationContext();
         
         if(DJIDroneType.DJIDrone_Vision == DJIDrone.getDroneType()){
@@ -524,7 +535,13 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
         DJIDrone.getDjiCamera().startUpdateTimer(1000);
         super.onResume();
     }
-    
+
+//    @Override
+//    public void onBackPressed() {
+//        this.setResult(666,null);
+//        this.finish();
+//    }
+
     @Override
     protected void onPause() {
         // TODO Auto-generated method stub
@@ -1984,36 +2001,34 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
                 break;
             case R.id.camera_multi_preview_mode_btn:
                 
-                DJIDrone.getDjiCamera().enterMultiplePreviewMode(new DJIExecuteResultCallback(){
+                DJIDrone.getDjiCamera().enterMultiplePreviewMode(new DJIExecuteResultCallback() {
 
                     @Override
-                    public void onResult(DJIError mErr)
-                    {
+                    public void onResult(DJIError mErr) {
                         // TODO Auto-generated method stub
-                        Log.d(TAG, "enterMultiplePreviewMode errorCode = "+ mErr.errorCode);
-                        Log.d(TAG, "enterMultiplePreviewMode errorDescription = "+ mErr.errorDescription);
-                        String result = "enterMultiplePreviewMode errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+                        Log.d(TAG, "enterMultiplePreviewMode errorCode = " + mErr.errorCode);
+                        Log.d(TAG, "enterMultiplePreviewMode errorDescription = " + mErr.errorDescription);
+                        String result = "enterMultiplePreviewMode errorCode =" + mErr.errorCode + "\n" + "errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
                         handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
                     }
-                    
+
                 });
                 
                 break;
                 
             case R.id.camera_multi_preview_nextpage_btn:
                 
-                DJIDrone.getDjiCamera().multiplePreviewNextPage(new DJIExecuteResultCallback(){
+                DJIDrone.getDjiCamera().multiplePreviewNextPage(new DJIExecuteResultCallback() {
 
                     @Override
-                    public void onResult(DJIError mErr)
-                    {
+                    public void onResult(DJIError mErr) {
                         // TODO Auto-generated method stub
-                        Log.d(TAG, "multiplePreviewNextPage errorCode = "+ mErr.errorCode);
-                        Log.d(TAG, "multiplePreviewNextPage errorDescription = "+ mErr.errorDescription);
-                        String result = "multiplePreviewNextPage errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+                        Log.d(TAG, "multiplePreviewNextPage errorCode = " + mErr.errorCode);
+                        Log.d(TAG, "multiplePreviewNextPage errorDescription = " + mErr.errorDescription);
+                        String result = "multiplePreviewNextPage errorCode =" + mErr.errorCode + "\n" + "errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
                         handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
                     }
-                    
+
                 });
                 
                 break;
@@ -2021,18 +2036,17 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
               
             case R.id.camera_multi_preview_prevpage_btn:
                 
-                DJIDrone.getDjiCamera().multiplePreviewPreviousPage(new DJIExecuteResultCallback(){
+                DJIDrone.getDjiCamera().multiplePreviewPreviousPage(new DJIExecuteResultCallback() {
 
                     @Override
-                    public void onResult(DJIError mErr)
-                    {
+                    public void onResult(DJIError mErr) {
                         // TODO Auto-generated method stub
-                        Log.d(TAG, "multiplePreviewPreviousPage errorCode = "+ mErr.errorCode);
-                        Log.d(TAG, "multiplePreviewPreviousPage errorDescription = "+ mErr.errorDescription);
-                        String result = "multiplePreviewPreviousPage errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+                        Log.d(TAG, "multiplePreviewPreviousPage errorCode = " + mErr.errorCode);
+                        Log.d(TAG, "multiplePreviewPreviousPage errorDescription = " + mErr.errorDescription);
+                        String result = "multiplePreviewPreviousPage errorCode =" + mErr.errorCode + "\n" + "errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
                         handler.sendMessage(handler.obtainMessage(SHOWTOAST, result));
                     }
-                    
+
                 });
                 
                 break;
@@ -2054,7 +2068,7 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
                 });
                 
                 break;
-                
+
             case R.id.camera_multi_edit_exit_btn:
                 
                 DJIDrone.getDjiCamera().exitMultipleEditMode(new DJIExecuteResultCallback(){
@@ -2490,7 +2504,167 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
                         Gravity.CENTER, 0, 0);
                 
                 break;
-                
+
+            //数据透传
+            case R.id.button_HandleO:
+                //需要发送的透传数据, 大小不能超过 100 字节
+                byte[] transferingData_O = {'O'};//O:打开爪子，S:收紧爪子，D:放下手臂，U:收起手臂
+
+                //TODO: 考虑丢包的可能性，可以尝试简单的重试发送。因为只需要接收到至少一次就行。
+                //发送透传数据给飞控
+                DJIDrone.getDjiMC().sendDataToExternalDevice(transferingData_O, new DJIExecuteResultCallback() {
+
+                    @Override
+                    public void onResult(DJIError result) {
+                        //result 为发送后返回结果:
+                        //1. result == DJIError.ERR_PARAM_IILEGAL,  data 可能为空或者长度超过 100
+                        //2. result == DJIError.ERR_TIMEOUT,        发送失败
+                        //3. result == DJIError.RESULT_OK,          发送成功
+
+                        switch (result.errorCode) {
+                            case DJIError.ERR_PARAM_IILEGAL:
+                                Log.d(TAG, "Illegal Data");
+                                //   result_s = "errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Illegel data!"));
+                                break;
+                            case DJIError.ERR_TIMEOUT:
+                                Log.d(TAG, "Send data failed.");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data failed! Time out"));
+                                break;
+                            case DJIError.RESULT_OK:
+                                Log.d(TAG, "Send data OK");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data OK!"));
+                                break;
+                            default:
+                                Log.d(TAG, "Unknown error.");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Unknown error"));
+                                break;
+
+                        }
+                    }
+                });
+
+                break;
+            case R.id.button_HandleS:
+                //需要发送的透传数据, 大小不能超过 100 字节
+                byte[] transferingData_S = {'S'};//O:打开爪子，S:收紧爪子，D:放下手臂，U:收起手臂
+
+                //TODO: 考虑丢包的可能性，可以尝试简单的重试发送。因为只需要接收到至少一次就行。
+                //发送透传数据给飞控
+                DJIDrone.getDjiMC().sendDataToExternalDevice(transferingData_S,new DJIExecuteResultCallback(){
+
+                    @Override
+                    public void onResult(DJIError result) {
+                        //result 为发送后返回结果:
+                        //1. result == DJIError.ERR_PARAM_IILEGAL,  data 可能为空或者长度超过 100
+                        //2. result == DJIError.ERR_TIMEOUT,        发送失败
+                        //3. result == DJIError.RESULT_OK,          发送成功
+
+                        switch(result.errorCode)
+                        {
+                            case DJIError.ERR_PARAM_IILEGAL:
+                                Log.d(TAG,"Illegal Data");
+                                //   result_s = "errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Illegel data!"));
+                                break;
+                            case DJIError.ERR_TIMEOUT:
+                                Log.d(TAG,"Send data failed.");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data failed! Time out"));
+                                break;
+                            case DJIError.RESULT_OK:
+                                Log.d(TAG,"Send data OK");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data OK!"));
+                                break;
+                            default:
+                                Log.d(TAG,"Unknown error.");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Unknown error"));
+                                break;
+
+                        }
+                    }
+                });
+
+                break;
+            case R.id.button_HandleUp:
+                //需要发送的透传数据, 大小不能超过 100 字节
+                byte[] transferingData_Up = {'U'};//O:打开爪子，S:收紧爪子，D:放下手臂，U:收起手臂
+
+                //TODO: 考虑丢包的可能性，可以尝试简单的重试发送。因为只需要接收到至少一次就行。
+                //发送透传数据给飞控
+                DJIDrone.getDjiMC().sendDataToExternalDevice(transferingData_Up,new DJIExecuteResultCallback(){
+
+                    @Override
+                    public void onResult(DJIError result) {
+                        //result 为发送后返回结果:
+                        //1. result == DJIError.ERR_PARAM_IILEGAL,  data 可能为空或者长度超过 100
+                        //2. result == DJIError.ERR_TIMEOUT,        发送失败
+                        //3. result == DJIError.RESULT_OK,          发送成功
+
+                        switch(result.errorCode)
+                        {
+                            case DJIError.ERR_PARAM_IILEGAL:
+                                Log.d(TAG,"Illegal Data");
+                                //   result_s = "errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Illegel data!"));
+                                break;
+                            case DJIError.ERR_TIMEOUT:
+                                Log.d(TAG,"Send data failed.");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data failed! Time out"));
+                                break;
+                            case DJIError.RESULT_OK:
+                                Log.d(TAG,"Send data OK");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data OK!"));
+                                break;
+                            default:
+                                Log.d(TAG,"Unknown error.");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Unknown error"));
+                                break;
+
+                        }
+                    }
+                });
+
+                break;
+            case R.id.button_HandleDown:
+                //需要发送的透传数据, 大小不能超过 100 字节
+                byte[] transferingData_Down = {'D'};//O:打开爪子，S:收紧爪子，D:放下手臂，U:收起手臂
+
+                //TODO: 考虑丢包的可能性，可以尝试简单的重试发送。因为只需要接收到至少一次就行。
+                //发送透传数据给飞控
+                DJIDrone.getDjiMC().sendDataToExternalDevice(transferingData_Down,new DJIExecuteResultCallback(){
+
+                    @Override
+                    public void onResult(DJIError result) {
+                        //result 为发送后返回结果:
+                        //1. result == DJIError.ERR_PARAM_IILEGAL,  data 可能为空或者长度超过 100
+                        //2. result == DJIError.ERR_TIMEOUT,        发送失败
+                        //3. result == DJIError.RESULT_OK,          发送成功
+
+                        switch(result.errorCode)
+                        {
+                            case DJIError.ERR_PARAM_IILEGAL:
+                                Log.d(TAG,"Illegal Data");
+                                //   result_s = "errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Illegel data!"));
+                                break;
+                            case DJIError.ERR_TIMEOUT:
+                                Log.d(TAG,"Send data failed.");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data failed! Time out"));
+                                break;
+                            case DJIError.RESULT_OK:
+                                Log.d(TAG,"Send data OK");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data OK!"));
+                                break;
+                            default:
+                                Log.d(TAG,"Unknown error.");
+                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Unknown error"));
+                                break;
+
+                        }
+                    }
+                });
+
+                break;
             default:
                 break;
         }
@@ -2507,10 +2681,21 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
      * @return      : void
      */
     public void onReturn(View view){
-        Log.d(TAG ,"onReturn");  
+        Log.d(TAG ,"onReturn");
+        //this.setResult(666);
+//        this.setResult(666,null);
+        this.setResult(666,null);
         this.finish();
+
+
     }
-    
+
+//    @Override
+//    public void finish() {
+//        setResult(666,null);
+//        super.finish();
+//    }
+
     public interface pickerValueChangeListener {
         void onValueChange(int pos1,int pos2);
     }

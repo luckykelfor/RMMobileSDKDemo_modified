@@ -292,116 +292,91 @@ public class GsProtocolHotPointDemoActivity extends DemoBaseActivity implements 
     @Override
     public void onClick(View v)
     {
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            case R.id.OpenGsButton : {
-                
-                if(!checkGetHomePoint()) return;
-                
-                DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack() {
+        int id = v.getId();
+		if (id == R.id.OpenGsButton) {
+			if(!checkGetHomePoint()) return;
+			DJIDrone.getDjiGroundStation().openGroundStation(new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                
-                break;
-            }
-            
-            case R.id.StartHotPointBtn : {
-                DJIHotPointInitializationInfo info = new DJIHotPointInitializationInfo();
-                info.latitude = this.latitude;
-                info.longitude = this.longitude;
-                info.altitude = 30;
-                info.radius = 10;
-                info.velocity = 5;
-                info.surroundDirection = GroundStationHotPointSurroundDirection.Anit_Clockwise;
-                info.interestDirection = GroundStationHotPointInterestDirection.South;
-                info.navigationMode = GroundStationHotPointNavigationMode.SurroundHeadingTowardHotPoint;
-                DJIDrone.getDjiGroundStation().startHotPoint(info, new DJIGroundStationExecuteCallBack() {
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.StartHotPointBtn) {
+			DJIHotPointInitializationInfo info = new DJIHotPointInitializationInfo();
+			info.latitude = this.latitude;
+			info.longitude = this.longitude;
+			info.altitude = 30;
+			info.radius = 10;
+			info.velocity = 5;
+			info.surroundDirection = GroundStationHotPointSurroundDirection.Anit_Clockwise;
+			info.interestDirection = GroundStationHotPointInterestDirection.South;
+			info.navigationMode = GroundStationHotPointNavigationMode.SurroundHeadingTowardHotPoint;
+			DJIDrone.getDjiGroundStation().startHotPoint(info, new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.PauseHotPoint : {
-                DJIDrone.getDjiGroundStation().pauseHotPoint(new DJIGroundStationExecuteCallBack() {
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.PauseHotPoint) {
+			DJIDrone.getDjiGroundStation().pauseHotPoint(new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.ResumeHotPoint : {
-                DJIDrone.getDjiGroundStation().resumeHotPoint(new DJIGroundStationExecuteCallBack() {
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.ResumeHotPoint) {
+			DJIDrone.getDjiGroundStation().resumeHotPoint(new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.CancelHotPoint : {
-                DJIDrone.getDjiGroundStation().cancelHotPoint(new DJIGroundStationExecuteCallBack() {
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.CancelHotPoint) {
+			DJIDrone.getDjiGroundStation().cancelHotPoint(new DJIGroundStationExecuteCallBack() {
 
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            case R.id.CloseGroundStation : {
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else if (id == R.id.CloseGroundStation) {
+			DJIDrone.getDjiGroundStation().closeGroundStation(new DJIGroundStationExecuteCallBack() {
 
-                DJIDrone.getDjiGroundStation().closeGroundStation(new DJIGroundStationExecuteCallBack() {
-
-                    @Override
-                    public void onResult(GroundStationResult result)
-                    {
-                        // TODO Auto-generated method stub
-                        String ResultsString = "return code =" + result.toString();
-                        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
-                    }
-                    
-                });
-                break;
-            }
-            
-            default : {
-                break;
-            }
-        }
+			    @Override
+			    public void onResult(GroundStationResult result)
+			    {
+			        // TODO Auto-generated method stub
+			        String ResultsString = "return code =" + result.toString();
+			        handler.sendMessage(handler.obtainMessage(SHOWTOAST, ResultsString));
+			    }
+			    
+			});
+		} else {
+		}
     }
 
 }

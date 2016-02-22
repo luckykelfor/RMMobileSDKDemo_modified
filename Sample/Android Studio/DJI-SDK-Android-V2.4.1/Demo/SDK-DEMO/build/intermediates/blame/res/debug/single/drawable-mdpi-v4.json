@@ -28,12 +28,12 @@
         "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\pickerbutton_normal.png"
     },
     {
-        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\pickerbackground_single.png",
-        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\pickerbackground_single.png"
-    },
-    {
         "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\picker_black_bg.png",
         "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\picker_black_bg.png"
+    },
+    {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\pickerbackground_single.png",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\res\\drawable-mdpi\\pickerbackground_single.png"
     },
     {
         "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Demo\\SDK-DEMO\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\icon_tick.png",

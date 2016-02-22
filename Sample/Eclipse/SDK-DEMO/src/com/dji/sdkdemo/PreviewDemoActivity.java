@@ -174,27 +174,17 @@ public class PreviewDemoActivity extends DemoBaseActivity implements OnCheckedCh
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId)
     {
-        // TODO Auto-generated method stub
-        switch (group.getCheckedRadioButtonId()) {
-            case R.id.ResolutionTypeRadio1:
-                mDjiGLSurfaceView.setStreamType(CameraPreviewResolutionType.Resolution_Type_320x240_15fps);         
-                break;
-                
-            case R.id.ResolutionTypeRadio2:
-                mDjiGLSurfaceView.setStreamType(CameraPreviewResolutionType.Resolution_Type_320x240_30fps);          
-                break;
-                
-            case R.id.ResolutionTypeRadio3:
-                mDjiGLSurfaceView.setStreamType(CameraPreviewResolutionType.Resolution_Type_640x480_15fps); 
-                break;
-
-            case R.id.ResolutionTypeRadio4:
-                mDjiGLSurfaceView.setStreamType(CameraPreviewResolutionType.Resolution_Type_640x480_30fps); 
-                break;
-
-            default:
-                break;
-         }
+        int checkedRadioButtonId = group.getCheckedRadioButtonId();
+		if (checkedRadioButtonId == R.id.ResolutionTypeRadio1) {
+			mDjiGLSurfaceView.setStreamType(CameraPreviewResolutionType.Resolution_Type_320x240_15fps);
+		} else if (checkedRadioButtonId == R.id.ResolutionTypeRadio2) {
+			mDjiGLSurfaceView.setStreamType(CameraPreviewResolutionType.Resolution_Type_320x240_30fps);
+		} else if (checkedRadioButtonId == R.id.ResolutionTypeRadio3) {
+			mDjiGLSurfaceView.setStreamType(CameraPreviewResolutionType.Resolution_Type_640x480_15fps);
+		} else if (checkedRadioButtonId == R.id.ResolutionTypeRadio4) {
+			mDjiGLSurfaceView.setStreamType(CameraPreviewResolutionType.Resolution_Type_640x480_30fps);
+		} else {
+		}
     }
     
      

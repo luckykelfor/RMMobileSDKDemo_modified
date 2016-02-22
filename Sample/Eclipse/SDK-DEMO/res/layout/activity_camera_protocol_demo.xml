@@ -16,7 +16,62 @@
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"/>
 
-      </RelativeLayout>
+        <Button
+            android:id="@+id/button_HandleO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@drawable/selector_button"
+            android:text="开爪"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginBottom="127dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="115dp" />
+
+        <Button
+            android:id="@+id/button_HandleS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@drawable/selector_button"
+            android:text="合爪"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_alignTop="@+id/button_HandleO"
+            android:layout_alignRight="@+id/button_HandleDown" />
+
+        <Button
+            android:id="@+id/button_HandleUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@drawable/selector_button"
+            android:text="升起"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_alignTop="@+id/button_HandleDown"
+            android:layout_alignLeft="@+id/button_HandleO" />
+
+        <Button
+            android:id="@+id/button_HandleDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@drawable/selector_button"
+            android:text="降下"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_above="@+id/button_HandleS"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="51dp" />
+
+    </RelativeLayout>
       
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -59,20 +114,20 @@
             />
 
       </RelativeLayout>
-      
-    <ScrollView 
+
+    <ScrollView
         android:id="@+id/CameraPlaybackStateScrollView"
         android:layout_width="200dp"
         android:layout_height="170dp"
         android:scrollbars="vertical"
         android:layout_centerVertical="true"
-        android:background="@drawable/selector_button" > 
-  
-        <RelativeLayout 
+        android:background="@drawable/selector_button" >
+
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
-            android:orientation="vertical" > 
+            android:orientation="vertical" >
 
                   <TextView
                     android:id="@+id/CameraPlaybackStateTV"
@@ -81,11 +136,11 @@
                     android:textColor="@android:color/white"
                     android:text=""
                     android:layout_centerInParent="true"
-                    android:textSize="14sp" 
-                    />   
-        </RelativeLayout> 
-    </ScrollView> 
-     
+                    android:textSize="14sp"
+                    />
+        </RelativeLayout>
+    </ScrollView>
+
 
     <RelativeLayout
         android:id="@+id/function_rl"
@@ -472,13 +527,13 @@
             android:text="@string/camera_set_iso"
             android:textColor="@color/white"
             android:textSize="14sp" />
-        
+
          <Button
             android:id="@+id/camera_get_iso_btn"
             android:layout_width="130dp"
             android:layout_height="35dp"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"  
+            android:paddingRight="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/selector_button"
