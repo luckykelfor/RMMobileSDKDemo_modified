@@ -2551,38 +2551,43 @@ public class CameraProtocolDemoActivity extends DemoBaseActivity implements OnCl
 
                 //TODO: 考虑丢包的可能性，可以尝试简单的重试发送。因为只需要接收到至少一次就行。
                 //发送透传数据给飞控
-                DJIDrone.getDjiMC().sendDataToExternalDevice(transferingData_S,new DJIExecuteResultCallback(){
+                int i = 0;
+                while( i++ <6)
+                {
+                    DJIDrone.getDjiMC().sendDataToExternalDevice(transferingData_S,new DJIExecuteResultCallback(){
 
-                    @Override
-                    public void onResult(DJIError result) {
-                        //result 为发送后返回结果:
-                        //1. result == DJIError.ERR_PARAM_IILEGAL,  data 可能为空或者长度超过 100
-                        //2. result == DJIError.ERR_TIMEOUT,        发送失败
-                        //3. result == DJIError.RESULT_OK,          发送成功
+                        @Override
+                        public void onResult(DJIError result) {
+                            //result 为发送后返回结果:
+                            //1. result == DJIError.ERR_PARAM_IILEGAL,  data 可能为空或者长度超过 100
+                            //2. result == DJIError.ERR_TIMEOUT,        发送失败
+                            //3. result == DJIError.RESULT_OK,          发送成功
 
-                        switch(result.errorCode)
-                        {
-                            case DJIError.ERR_PARAM_IILEGAL:
-                                Log.d(TAG,"Illegal Data");
-                                //   result_s = "errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
-                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Illegel data!"));
-                                break;
-                            case DJIError.ERR_TIMEOUT:
-                                Log.d(TAG,"Send data failed.");
-                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data failed! Time out"));
-                                break;
-                            case DJIError.RESULT_OK:
-                                Log.d(TAG,"Send data OK");
-                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data OK!"));
-                                break;
-                            default:
-                                Log.d(TAG,"Unknown error.");
-                                handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Unknown error"));
-                                break;
+                            switch(result.errorCode)
+                            {
+                                case DJIError.ERR_PARAM_IILEGAL:
+                                    Log.d(TAG,"Illegal Data");
+                                    //   result_s = "errorCode =" + mErr.errorCode + "\n"+"errorDescription =" + DJIError.getErrorDescriptionByErrcode(mErr.errorCode);
+                                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Illegel data!"));
+                                    break;
+                                case DJIError.ERR_TIMEOUT:
+                                    Log.d(TAG,"Send data failed.");
+                                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data failed! Time out"));
+                                    break;
+                                case DJIError.RESULT_OK:
+                                    Log.d(TAG,"Send data OK");
+                                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Send data OK!"));
+                                    break;
+                                default:
+                                    Log.d(TAG,"Unknown error.");
+                                    handler.sendMessage(handler.obtainMessage(SHOWTOAST, "Unknown error"));
+                                    break;
 
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
 
                 break;
             case R.id.button_HandleUp:

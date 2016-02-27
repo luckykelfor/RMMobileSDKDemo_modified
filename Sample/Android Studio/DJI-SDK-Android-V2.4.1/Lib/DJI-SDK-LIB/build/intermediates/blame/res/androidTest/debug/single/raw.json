@@ -1,7 +1,15 @@
 [
     {
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\dark_720p30.264",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\dark_720p30.264"
+    },
+    {
         "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\iframe_1280_ins.h264",
         "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\iframe_1280_ins.h264"
+    },
+    {
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\iframe_1280_ins.h264",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\iframe_1280_ins.h264"
     },
     {
         "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\dark_720p25.264",
@@ -20,16 +28,48 @@
         "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\dark_1080p30.264"
     },
     {
-        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\iframe_960_3s.h264",
-        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\iframe_960_3s.h264"
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\iframe_1280_3s.h264",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\iframe_1280_3s.h264"
+    },
+    {
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\dark_1080p30.264",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\dark_1080p30.264"
     },
     {
         "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\dark_720p30.264",
         "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\dark_720p30.264"
     },
     {
+        "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\iframe_960_3s.h264",
+        "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\iframe_960_3s.h264"
+    },
+    {
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\effect_tick.ogg",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\effect_tick.ogg"
+    },
+    {
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\dark_1080p25.264",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\dark_1080p25.264"
+    },
+    {
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\dock.ogg",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\dock.ogg"
+    },
+    {
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\flyc_param_infos",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\flyc_param_infos"
+    },
+    {
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\dark_720p25.264",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\dark_720p25.264"
+    },
+    {
         "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\dark_1080p25.264",
         "source": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\dark_1080p25.264"
+    },
+    {
+        "merged": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\iframe_960_3s.h264",
+        "source": "D:\\MyWorkspace\\RMMobileSDKDemo_modified\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\bundles\\debug\\res\\raw\\iframe_960_3s.h264"
     },
     {
         "merged": "D:\\Myworkspace\\RobomastersProjects\\DJI_SDK_Android_V2.4.1\\V2.4.1\\Sample\\Android Studio\\DJI-SDK-Android-V2.4.1\\Lib\\DJI-SDK-LIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\flyc_param_infos",
